@@ -1,0 +1,2 @@
+class Categerios < ApplicationRecord
+end
