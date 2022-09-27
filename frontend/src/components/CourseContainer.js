@@ -27,12 +27,12 @@ const CourseContainer = ({ categeory }) => {
   //   const renderedList = categeory.map((cat) => {
   //     return <CourseList videos={videos} />;
   //   });
-  
+
   const videosJson = require("../data/videos.json");
   return (
     // <div>
     //
-    <div style={{ display: "inline-block", margin:"8px" }}>
+    <div style={{ display: "inline-block", margin: "8px" }}>
       <div>
         <h1 className=""> {categeory}</h1>
       </div>
