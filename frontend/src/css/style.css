@@ -97,13 +97,17 @@ font-weight: 500
   display : flex;
   justify-content: center;
   align-items:center;
+  width: 80rem;
+  height: 8rem;
+  background-color: #EEFBF3;
+  margin : 10px;
 }
 
 .categoryUL{
-  display: flex;
+  /* display: flex; */
   
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   list-style: none;
   /* max-width: 80%; */
   /* overflow-x: scroll; */
@@ -114,10 +118,14 @@ font-weight: 500
     width: 0;
     height: 0;
   } */
+
+  /* width: 100%; */
   height: auto;
   overflow-x: auto;
   overflow-y: auto;
   white-space: nowrap;
+
+  
   
 }
 
@@ -125,41 +133,79 @@ font-weight: 500
   display: none;
   }
 .categoryList{
-  background:#FF61F6;
-  color: #fff;
+  background:#FFFFFF;
+  color: #212832;
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 10px;
   margin: 0px 15px;
   white-space: nowrap;
   display: inline-flex;
-  
+  /* width: 100%; */
   align-items: center;
   justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+  /* width: 100%; */
+  height: 60px;
+  border: 1px solid rgba(48,146,85,0.2);
+  transition: all 0.3s ease 0s;
+    padding: 0 15px;
+}
+.categoryList:active, .categoryList:hover{
+    color: #309255;
+    border: 1px solid #309255;
 }
 
-.prev{
-  border: 0;
+.prev, .next{
+  /* border: 0; */
   /* color: #777; */
   color : #000;
-  position: relative;
-  align-items: right;
-  justify-content: right;
+  /* position: relative; */
+  /* align-items: center;
+  justify-content: center; */
   font-size: 24px;
   /* margin: 0 8px; */
-  height: 100%;
-  background-color: transparent;
+  height: 35%;
+  width : 80px;
+  background-color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  margin : 1rem;
+  /* border: 1px solid #309255; */
+  border : 1px solid transparent;
 }
-.next{
+/* .next{
   border: 0;
-  /* color: #777; */
+  color: #777;
   color : #000;
   font-size: 24px;
   justify-content: left;
   align-items: left;
-  /* margin: 0 8px; */
-  height: 100%;
-  background-color: transparent;
+  margin: 0 8px;
+  height: 50%;
+  width : 10%;
+  background-color: #fff;
+  border-radius: 50%;
+  margin : 1rem;
+} */
+
+.prev:active, .next:active,.prev:hover, .next:hover{
+  background-color: #309255;
+  color : #fff;
+  cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 /* .VideoList{
   margin: "4px";
