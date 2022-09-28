@@ -25,7 +25,7 @@ const CourseList = ({ videos }) => {
 
   //   console.log(videos);
   //   key={video.id.videoId}
-  const imageType = "full"
+  const imageType = "full";
   const renderedCourse = Object.keys(videos).map((key, i) => {
     if (i != 4 && i != 5) {
       return <Course key={key} video={videos[i]} imageType={imageType} />;
