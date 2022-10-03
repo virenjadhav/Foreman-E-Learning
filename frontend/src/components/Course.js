@@ -79,12 +79,16 @@ const Course = ({ video }) => {
         </p> */}
         <div className="my-card-course">
           <div className="my-card-time">
-            <AiOutlineClockCircle />
-            08 hr 15 mins
+            <span className="my-card-clockIcon">
+              <AiOutlineClockCircle />
+            </span>
+            <span className="my-card-time-text">08 hr 15 mins</span>
           </div>
           <div className="my-card-lecture">
-            <GiOpenBook />
-            29 Lectures
+            <span className="my-card-lectureIcon">
+              <GiOpenBook />
+            </span>
+            <span className="my-card-lectureText">29 Lectures</span>
           </div>
         </div>
         {/* <a href="#" className="btn btn-primary my-card-btn">
@@ -94,15 +98,19 @@ const Course = ({ video }) => {
         half star : MdOutlineStarHalf
         empty star : MdOutlineStarOutline */}
         <div className="my-card-bottom">
-          <h1>$385.00</h1>
-          <h2>$440.00</h2>
-          <h4>4.9</h4>
-          <span className="rating">
-            <MdOutlineStar />
-            <MdOutlineStar />
-            <MdOutlineStar />
-            <MdOutlineStarHalf />
-            <MdOutlineStarOutline />
+          <div className="my-card-pricing">
+            <h1>{false ? "$385.00" : "Free"}</h1>
+            <h2>{false ? "$440.00" : ""}</h2>
+          </div>
+          <span className="my-card-rating">
+            <h4>4.9</h4>
+            <span className="rating">
+              <MdOutlineStar size="15" />
+              <MdOutlineStar size="15" />
+              <MdOutlineStar size="15" />
+              <MdOutlineStarHalf size="15" />
+              <MdOutlineStarOutline size="15" />
+            </span>
           </span>
         </div>
       </div>

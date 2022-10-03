@@ -199,9 +199,14 @@ font-weight: 500
 
 
 .my-card{
-  width: 23rem;
+  width: 20rem;
   display: inline-block !important;
-  border : 1px solid #000;
+  border : 1px solid #D6E9DD;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+.my-card:hover, .my-card:active{
+  border: 1px solid #309255;
 }
 
 .my-card-img-div{
@@ -255,6 +260,12 @@ font-weight: 500
   align-items: center;
 }
 
+.my-card-title{
+  font-size: 1rem;
+  font-weight: 540;
+  color: #212832;
+}
+
 .my-card-course{
   display: flex;
   width: 100%;
@@ -265,26 +276,89 @@ font-weight: 500
 }
 .my-card-time{
   width: 50%;
+  /* padding: 0.5 rem; */
+}
+
+.my-card-time-text{
+  margin : 0.5rem;
+  font-size: 0.9rem;
+  color: #686B65;
+  padding-top : .2rem;
+}
+
+.my-card-lectureText{
+  margin: 0.5rem;
+  font-size: 0.9rem;
+  color: #686B65;
+  padding: .2rem;
 }
 
 .my-card-lecture{
   text-align:right;
   width: 50%;
 }
+.my-card-clockIcon{
+  color: #309255;
+}
+.my-card-lectureIcon{
+  color: #309255
+}
 
 .my-card-bottom{
   display: flex;
+  height: 3rem;
+  width : 100%;
+  background-color: #EEFBF3;
+  /* margin : 0.5rem ; */
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  justify-content: center;
+  /* justify-content: space-between;  */
+  align-items: center;
+  /* padding: 1rem; */
+ 
 }
-.my-card-bottom h1{
-
+.my-card-pricing{
+  width: 50%;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+.my-card-pricing h1{
+  font-size: 1.2rem;
+  font-weight: 780;
+  color: #309255;
+  margin: 0 0.5rem;
+  width: 50%;
+}
+.my-card-pricing h2{
+  font-size: 1rem;
+  color: #212832;
+  padding-top: 1rem;
+  font-weight:550;
+  text-decoration: line-through;
+  width: 50%;
 }
 
-.my-card-bottom h2{
-
+.my-card-rating{
+  display: flex;
+  /* width: 60%; */
+  margin: 0 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.my-card-bottom h4{
+.my-card-rating h4{
+  font-size: 1rem;
+  color: #212832;
+  padding-top:  1rem;
+  padding-right: 0.3rem;
+  padding-left: 0.3rem;
+  font-weight: 500;
   
+}
+.rating{
+  color: #FFBA00;
 }
 
 
