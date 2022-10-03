@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CourseList from "./CourseList";
 import useVideos from "../hooks/useVideos";
 import youtube from "../apis/youtube";
+import "../css/style.css";
 // import '../data/videos.json';
 
 const CourseContainer = ({ categeory }) => {
@@ -37,6 +38,9 @@ const CourseContainer = ({ categeory }) => {
         <h1 className=""> {categeory}</h1>
       </div>
       <CourseList videos={videosJson} />
+      <div className="course-btn-container">
+        <button className="course-btn">Other Course</button>
+      </div>
     </div>
   );
 };
