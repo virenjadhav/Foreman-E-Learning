@@ -4,6 +4,7 @@ import useVideos from "../hooks/useVideos";
 import youtube from "../apis/youtube";
 import "../css/style.css";
 // import '../data/videos.json';
+import "../css/Home.css";
 
 const CourseContainer = ({ categeory }) => {
   //   const [videos, search] = useVideos("Data Stucture");

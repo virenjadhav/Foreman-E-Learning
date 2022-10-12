@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import CourseContainer from "./CourseContainer";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
+import "../css/Home.css";
 
 const CategeryScroll = ({ categerios, setCategory }) => {
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useVideos from "../hooks/useVideos";
-import Course from "./Course";
+import CourseCard from "./CourseCard";
 import youtube from "../apis/youtube";
 
 const CourseList = ({ videos }) => {
@@ -31,7 +31,7 @@ const CourseList = ({ videos }) => {
     return (
       // <div class="row">
       //   <div class="col-4">
-      <Course key={key} video={videos[i]} imageType={imageType} />
+      <CourseCard key={key} video={videos[i]} imageType={imageType} />
       //   </div>
       // </div>
     );

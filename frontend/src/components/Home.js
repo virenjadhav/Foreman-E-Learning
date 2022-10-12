@@ -3,7 +3,11 @@ import Header from "./Header";
 import axios from "axios";
 import CourseContainer from "./CourseContainer";
 import CategoryScroll from "./CategoryScroll";
-
+import Testimonial from "./Testimonial";
+import Team from "./Team.js";
+import testimonialBackgroundImage from "../images/testimonial_background_image.jpg";
+import CourseCounting from "./CourseCounting";
+import "../css/Home.css";
 function Home() {
   const [categerios, setCategerios] = useState([]);
   const [selectCategory, setCategory] = useState("");
@@ -88,6 +92,27 @@ function Home() {
      <CourseContainer key={cat.id} categeory={cat.name} /> 
   )):<div></div>} */}
         <CourseContainer categeory={selectCategory} />
+        {/* <div className="testimonial-container">
+           <img
+            className="testimonial-background-image"
+            src={testimonialBackgroundImage}
+            alt=""
+          /> 
+          <h2 className="testimonial-title">TESTIMONIALS</h2>
+          <h1 className="testimonial-text">What Our Users Say About Us</h1>
+          <div className="testimonial-card">
+            <SlideShow />
+          </div>
+        </div> */}
+        <div className="testimonial-container">
+          <Testimonial />
+        </div>
+        <section className="ourTeam">
+          <Team />
+        </section>
+        <section className="courseCounting">
+          <CourseCounting />
+        </section>
       </div>
     </div>
   );

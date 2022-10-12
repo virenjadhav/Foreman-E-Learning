@@ -1,0 +1,50 @@
+.about-images{
+    position: relative;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+.about-images images img{
+    border-radius: 10px;
+    width: 100%;
+}
+
+.about-images about-years{
+    width: 125px;
+        /* background-color: $primary; */
+        padding: 10px 20px;
+        text-align: center;
+        border-radius: 10px;
+        position: absolute;
+        top: 50px;
+        right: 30px;
+}
+.about-images about-years years-icon{
+    /* background-color: $white; */
+    text-align: center;
+    width: 85px;
+    height: 85px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -30px;
+    position: relative;
+}
+
+.about-images about-years p{
+    /* color: $white; */
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 6px;
+}
+.about-images about-years p strong{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+
+
+
+
