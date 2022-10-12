@@ -1,6 +1,6 @@
 import React from "react";
-import Course01 from "../images/courses-01.jpg";
-import Author01 from "../images/author-01.jpg";
+// import Course01 from "../images/courses-01.jpg";
+// import Author01 from "../images/author-01.jpg";
 
 import { GiOpenBook } from "react-icons/gi";
 import { AiOutlineClockCircle } from "react-icons/ai";
@@ -10,7 +10,16 @@ import { MdOutlineStarOutline } from "react-icons/md";
 
 import "../css/style.css";
 
-const CourseCard = ({ video }) => {
+const CourseCard = ({ course }) => {
+  // console.log(course.course_img_path)
+  // const Course01 = require("../images/courses-01.jpg");
+  
+  const Course01 = require(`../images/${course.course_img_path}`);
+  const Author01 = require(`../images/${course.teacher_profile_path}`);
+  // const course_path  = course.course_img_path
+  // console.log(course_path)
+  // const Course01 = source("../images/course-01.jpg");
+  // import Course01 from "../images/course-01.jpg";
   // console.log(video.snippet);
   // return (
   //   <div
@@ -66,12 +75,13 @@ const CourseCard = ({ video }) => {
         <div className="my-card-profile-detail">
           <div className="my-card-profile card-columns">
             <img src={Author01} alt="" className="my-card-profile-img" />
-            <h3 className="my-card-profile-text">Jason Williams</h3>
+            <h3 className="my-card-profile-text">{course.user_full_name}</h3>
           </div>
-          <h1 className="my-card-sub-tag">Science</h1>
+          <h1 className="my-card-sub-tag">{course.category}</h1>
         </div>
         <h5 className="card-title my-card-title">
-          Data Science and Machine Learning with Python - Hands On!
+          {/* Data Science and Machine Learning with Python - Hands On! */}
+          {course.title}
         </h5>
         {/* <p className="card-text my-card-text">
           Some quick example text to build on the card title and make up the
@@ -82,13 +92,13 @@ const CourseCard = ({ video }) => {
             <span className="my-card-clockIcon">
               <AiOutlineClockCircle />
             </span>
-            <span className="my-card-time-text">08 hr 15 mins</span>
+            <span className="my-card-time-text">{course.duration_hours} hr {course.duration_min} mins</span>
           </div>
           <div className="my-card-lecture">
             <span className="my-card-lectureIcon">
               <GiOpenBook />
             </span>
-            <span className="my-card-lectureText">29 Lectures</span>
+            <span className="my-card-lectureText">{course.lecture} Lectures</span>
           </div>
         </div>
         {/* <a href="#" className="btn btn-primary my-card-btn">
@@ -99,11 +109,11 @@ const CourseCard = ({ video }) => {
         empty star : MdOutlineStarOutline */}
         <div className="my-card-bottom">
           <div className="my-card-pricing">
-            <h1>{true ? "$385.00" : "Free"}</h1>
-            <h2>{true ? "$440.00" : ""}</h2>
+            <h1>{true ? (course.discount_price) : "Free"}</h1>
+            <h2>{true ? (course.original_price) : ""}</h2>
           </div>
           <span className="my-card-rating">
-            <h4>4.9</h4>
+            <h4>{course.rating}</h4>
             <span className="rating">
               <MdOutlineStar size="15" />
               <MdOutlineStar size="15" />

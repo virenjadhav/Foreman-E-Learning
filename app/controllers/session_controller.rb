@@ -21,9 +21,9 @@ class SessionController < ApplicationController
             puts("rrrr")
             session[:user_id] = @user.id
             puts("rrrr")
-            Current.user ||= User.find(session[:user_id]) if session[:user_id]
+            # Current.user ||= User.find(session[:user_id]) if session[:user_id]
 
-            puts(Current.user)
+            # puts(Current.user)
             # render json:  logged_in => true, user = @user 
             # render json: @post, status: :created, location: @post
             # render json:  @user, logged_in: true

@@ -1,12 +1,15 @@
 import React,{useState, useRef} from 'react';
 import '../css/Login.css';
 import axios from 'axios';
-
+import {NavLink} from 'react-router-dom';
+import Signup from './Signup';
 const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState('');
+    const[ isLoggedIn, setIsLoggedIn]  = useState(false);
+    
 
     // const onLoginClick = () => {
     //     console.log(email,password)
@@ -35,6 +38,9 @@ const Login = (props) => {
 
                 if(response.data.logged_in) {
                     props.handleLogin(response.data);
+                    setIsLoggedIn(true);
+                    console.log(response.data.logged_in);
+                    console.log(isLoggedIn);
                     redirect();
                 }
                 else{
@@ -45,6 +51,8 @@ const Login = (props) => {
         
 
         loginFunction();
+        console.log("jjj")
+        console.log(isLoggedIn);
     }
     catch (e) {
         console.log('api errors:', e)
@@ -56,20 +64,27 @@ const Login = (props) => {
         // props.history.push('/');
         console.log("hello")
         console.log(props)
-        console.log(props.history)
+        
+        // return <NavLink to="/"> </NavLink>
+        // window.history.pushState({}, "", "/");
+    }
+
+    const onRegisterClick = () => {
+        return <Signup />;
     }
 
 
   return (
+    
     <div>
         <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
-    <div class="card card0 border-0">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+     <div class="card card0 border-0">
+   {/* <div class="alert alert-warning alert-dismissible fade show" role="alert">
    { errors == '' ? '' : errors}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-</div>
+</div> */}
         <div class="row d-flex">
             <div class="col-lg-6">
                 <div class="card1 pb-5">
@@ -83,17 +98,17 @@ const Login = (props) => {
             </div>
             <div class="col-lg-6">
                 <div  class="card2 card border-0 px-4 py-5">
-                    <div class="row mb-4 px-3">
+                    {/* <div class="row mb-4 px-3">
                         <h6 class="mb-0 mr-4 mt-2">Sign in with</h6>
                         <div class="facebook text-center mr-3"><div class="fa fa-facebook"></div></div>
                         <div class="twitter text-center mr-3"><div class="fa fa-twitter"></div></div>
                         <div class="linkedin text-center mr-3"><div class="fa fa-linkedin"></div></div>
-                    </div>
-                    <div class="row px-3 mb-4">
+                    </div> */}
+                    {/* <div class="row px-3 mb-4">
                         <div class="line"></div>
                         <small class="or text-center">Or</small>
                         <div class="line"></div>
-                    </div>
+                    </div> */}
                     <div class="row px-3">
                         <label class="mb-1"><h6 class="mb-0 text-sm">Email Address</h6></label>
                         <input
@@ -122,10 +137,12 @@ const Login = (props) => {
                         <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
                     </div>
                     <div class="row mb-3 px-3">
+                        <NavLink to={isLoggedIn? "/":"/login"}>
                         <button type="submit" class="btn btn-blue text-center" onClick={handleLogin}>Login</button>
+                        </NavLink>
                     </div>
                     <div class="row mb-4 px-3">
-                        <small class="font-weight-bold">Don't have an account? <a class="text-danger ">Register</a></small>
+                        <small class="font-weight-bold">Don't have an account? <NavLink class="text-danger " to="/sign_up" onClick={onRegisterClick}>Register</NavLink></small>
                     </div>
                 </div>
             </div>

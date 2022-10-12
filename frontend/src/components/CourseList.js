@@ -3,7 +3,7 @@ import useVideos from "../hooks/useVideos";
 import CourseCard from "./CourseCard";
 import youtube from "../apis/youtube";
 
-const CourseList = ({ videos }) => {
+const CourseList = ({ courses }) => {
   //   const [videos, search] = useVideos(type);
   //   const [videos, setVideos] = useState([]);
 
@@ -26,12 +26,12 @@ const CourseList = ({ videos }) => {
   //   console.log(videos);
   //   key={video.id.videoId}
   const imageType = "full";
-  const renderedCourse = Object.keys(videos).map((key, i) => {
+  const renderedCourse = Object.keys(courses).map((key, i) => {
     // if (i == 4 && i == 5) {
     return (
       // <div class="row">
       //   <div class="col-4">
-      <CourseCard key={key} video={videos[i]} imageType={imageType} />
+      <CourseCard key={key} course={courses[i]} imageType={imageType} />
       //   </div>
       // </div>
     );
