@@ -85,6 +85,7 @@ import Home from "./components/Home";
 import Course from "./components/Course";
 import CourseInfo from "./components/CourseInfo";
 import CourseDetails from "./components/CourseDetails";
+import {NavLink} from 'react-router-dom';
 
 // const courseCategory = [
 //   { id: 0, value: "Back-End" },
@@ -137,8 +138,12 @@ function App() {
       {/* <Header /> */}
       {/* <Login /> */}
       {/* <Signup /> */}
-
+      {/* {console.log(isLoggedIn)}
+      {isLoggedIn? */}
+      {/* {window.history.pushState({}, "", '/login')} */}
       <Routes>
+      {/* <Route path="/login" element={<Login handleLogin={handleLogin}/>} /> */}
+      {/* <Route path="/sign_up" element={<Signup handleLogin={handleLogin} />} /> */}
         <Route path="/" element={<MainHeader />}>
           <Route path="about" element={<About />} />
           <Route path="Link" element={<Link />} />
@@ -156,6 +161,18 @@ function App() {
           <Route index element={<Home />} />
         </Route>
       </Routes>
+      {/* : */}
+      
+      
+      {/* <Routes>
+      <Route path="/sign_up" element={<Signup handleLogin={handleLogin} />} />
+      {/* <NavLink to="/login"> 
+      {window.history.pushState({}, "", '/login')}
+      <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
+      </NavLink>
+      </Routes> */}
+      
+{/* } */}
 
       {/* <div>
   //     <h1>Posts</h1>

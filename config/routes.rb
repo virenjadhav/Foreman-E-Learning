@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   post 'logout',   to: 'session#destroy'
   get 'logged_in', to: 'session#is_logged_in'
   get 'get_categerious', to: 'categerious#getCategerious'
+  get 'get_course', to: 'course#get_course'
+  
 end

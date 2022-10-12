@@ -1,26 +1,26 @@
 import React from "react";
 
-import $ from "jquery";
+// import $ from "jquery";
 
 import "../css/Home.css";
 
 function CourseCounting() {
-  $(".counter").each(function() {
-    $(this)
-      .prop("Counter", 0)
-      .animate(
-        {
-          Counter: $(this).text(),
-        },
-        {
-          duration: 2000,
-          easing: "swing",
-          step: function(now) {
-            $(this).text(Math.ceil(now));
-          },
-        }
-      );
-  });
+//   $(".counter").each(function() {
+//     $(this)
+//       .prop("Counter", 0)
+//       .animate(
+//         {
+//           Counter: $(this).text(),
+//         },
+//         {
+//           duration: 2000,
+//           easing: "swing",
+//           step: function(now) {
+//             $(this).text(Math.ceil(now));
+//           },
+//         }
+//       );
+//   });
 
   return (
     <div>

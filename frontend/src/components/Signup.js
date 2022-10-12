@@ -1,5 +1,7 @@
 import React,{ useState} from 'react';
 import axios from 'axios';
+import Login from './Login';
+import {NavLink} from 'react-router-dom';
 
 const Signup = (props) =>  {
     const [email, setEmail] = useState('');
@@ -77,17 +79,25 @@ const Signup = (props) =>  {
     }
     console.log("sign up")
 // axios.post('http://localhost:5000/sign_up', {user}, {withCredentials: true})
-const response =  axios.post('http://localhost:5000/login', {user})
+const response =  axios.post('http://localhost:5000/sign_up', {user})
     .then(response => {
       if (response.data.status === 'created') {
         props.handleLogin(response.data)
         // this.redirect()
+        redirect();
+        
+
       } else {
           setErrors(response.data.errors);
       }
     })
     .catch(error => console.log('api errors:', error))
   
+    }
+
+    const redirect = () => {
+      // window.history.pushState({}, "", "/login");
+      return <NavLink to="/login"><Login/></NavLink>;
     }
 
   return (
@@ -201,12 +211,12 @@ const response =  axios.post('http://localhost:5000/login', {user})
 
 <section class="vh-100" style={{backgroundColor: "#eee;"}}>
   <div class="container h-100">
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {/* <div class="alert alert-warning alert-dismissible fade show" role="alert">
    { errors == '' ? '' : errors}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-</div>
+</div> */}
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">
         <div class="card text-black" style={{borderRadius: "25px;"}}>
@@ -225,6 +235,7 @@ const response =  axios.post('http://localhost:5000/login', {user})
                       type="text" id="form3Example1c" class="form-control"
                       onChange={(e) => setName(e.target.value)}
                         value={name} 
+                        style={{border: "1px solid green"}}
                       />
                       <label class="form-label" for="form3Example1c">Your Name</label>
                     </div>
@@ -238,6 +249,7 @@ const response =  axios.post('http://localhost:5000/login', {user})
                        class="form-control"
                        onChange={(e) => setEmail(e.target.value)}
                         value={email}
+                        style={{border: "1px solid green"}}
                        />
                       <label class="form-label" for="form3Example3c">Your Email</label>
                     </div>
@@ -248,7 +260,7 @@ const response =  axios.post('http://localhost:5000/login', {user})
                     <div class="form-outline flex-fill mb-0">
                       <input type="password" id="form3Example4c" class="form-control" 
                       onChange={(e) => setPassword(e.target.value)}
-                      value={password}/>
+                      value={password} style={{border: "1px solid green"}}/>
                       <label class="form-label" for="form3Example4c">Password</label>
                     </div>
                   </div>
@@ -259,6 +271,7 @@ const response =  axios.post('http://localhost:5000/login', {user})
                       <input type="password" id="form3Example4cd" class="form-control"
                       onChange={(e) => setPasswordConfirmation(e.target.value)}
                       value={password_confirmation}
+                      style={{border: "1px solid green"}}
                       />
                       <label class="form-label" for="form3Example4cd">Confirm your password</label>
                     </div>
