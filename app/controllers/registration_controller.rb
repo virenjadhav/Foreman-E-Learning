@@ -46,7 +46,7 @@ class RegistrationController < ApplicationController
         # @user = User.new({email:"abc@xyz.com", password: "pass", password_confirmation: "pass"})
         puts(@user)
         if @user.save
-            render :json => {result:"success", message:"User created successfully"}
+            render :json => {result:"success", message:"User created successfully", status: "created"}
         else
             render :json => {result:"Error", message:"#{@user.errors.full_messages}"}
         end
@@ -55,6 +55,6 @@ class RegistrationController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation, :username)
+        params.require(:user).permit(:email, :password, :password_confirmation, :username, :type_code, :full_name, :mobile_no, :address, :user_type)
     end
 end

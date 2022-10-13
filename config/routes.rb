@@ -15,5 +15,8 @@ Rails.application.routes.draw do
   get 'logged_in', to: 'session#is_logged_in'
   get 'get_categerious', to: 'categerious#getCategerious'
   get 'get_course', to: 'course#get_course'
+
+  post "/posts", to: 'posts#create'
+get "/posts", to: "posts#index"
   
 end
