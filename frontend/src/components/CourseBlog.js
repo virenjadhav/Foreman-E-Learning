@@ -31,7 +31,7 @@ const CourseBlog = () => {
     <section className="blog-area pd-top-120 pd-bottom-120">
       <div className="container m-1">
         <div className="row">
-          <div className="col-lg-4 order-lg-0 col-12">
+          {/* <div className="col-lg-4 order-lg-0 col-12">
             <div className="td-sidebar mt-5 mt-lg-0">
               <div className="widget widget_search_course">
                 <h4 className="widget-title">Search</h4>
@@ -41,7 +41,7 @@ const CourseBlog = () => {
                     className="btn btn-base w-100 mt-3 btn-primary"
                     type="submit"
                   >
-                    {/* <i className="fa fa-search"></i> */}
+                  
                     <BiSearch />
                     Search
                   </button>
@@ -53,8 +53,7 @@ const CourseBlog = () => {
                   <li>
                     <NavLink to="/blog-details">
                       Tempor lorem interdum
-                      {/* <i className="fa fa-caret-right"></i> */}
-                      {/* <AiFillCaretRight /> */}
+                      
                     </NavLink>
                   </li>
                   <li>
@@ -76,11 +75,7 @@ const CourseBlog = () => {
                     </NavLink>
                   </li>
                   <li className="text-center">
-                    {/* <NavLink to="/blog-details">
-                        Tempor lorem interdum
-                        
-                        <AiFillCaretRight />
-                      </NavLink> */}
+                    
                     <AiOutlineDown />
                   </li>
                 </ul>
@@ -136,7 +131,7 @@ const CourseBlog = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="col-lg-8 order-lg-12">
             <div className="row go-top">
               {/* <div className="col-md-6">
@@ -461,7 +456,7 @@ const CourseBlog = () => {
                   </div>
                 </div> */}
 
-              <div className="col-md-6">
+              {/* <div className="col-md-6">
                 <div className="single-course-inner">
                   <CourseCard />
                 </div>
@@ -511,13 +506,12 @@ const CourseBlog = () => {
                 <div className="single-course-inner">
                   <CourseCard />
                 </div>
-              </div>
+              </div> */}
             </div>
-            <nav className="td-page-navigation container">
+            {/* <nav className="td-page-navigation container">
               <ul className="pagination">
                 <li className="pagination-arrow">
                   <a href="/course">
-                    {/* <i className="fa fa-angle-double-left"></i> */}
                     <MdOutlineArrowBackIosNew />
                   </a>
                 </li>
@@ -542,12 +536,11 @@ const CourseBlog = () => {
 
                 <li className="pagination-arrow">
                   <a href="/course">
-                    {/* <i className="fa fa-angle-double-right"></i> */}
                     <MdOutlineArrowForwardIos />
                   </a>
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
         </div>
       </div>

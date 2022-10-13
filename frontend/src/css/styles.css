@@ -5650,7 +5650,7 @@
     word-wrap: break-word;
   }
   
-  .modal-open {
+  /* .modal-open {
     overflow: hidden;
   }
   
@@ -5966,7 +5966,7 @@
       border-radius: 0;
     }
   }
-  
+   */
   .tooltip {
     position: absolute;
     z-index: 1080;
@@ -14602,7 +14602,7 @@
     line-height: 35px;
     font-size: 12px;
   }
-  
+/*   
   /*--
   /*  2.4 - Modal CSS
   /*----------------------------------------*/
@@ -14644,7 +14644,7 @@
   .modal .modal-dialog .modal-content .reviews-form {
     padding-top: 0;
   }
-  
+   */
   /*----------------------------------------*/
   /*  03. Header CSS
   /*----------------------------------------*/
