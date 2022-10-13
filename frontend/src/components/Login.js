@@ -4,11 +4,13 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import Signup from "./Signup";
+import { useNavigate } from "react-router-dom";
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   // const onLoginClick = () => {
   //     console.log(email,password)
@@ -66,7 +68,9 @@ const Login = (props) => {
     // return <Redirect to="/home" />;
     // return <NavLink to="/"> </NavLink>
     // window.history.pushState({}, "", "/");
-    window.location.href = "/";
+    // window.location.href = "/";
+    
+    navigate("/");
   };
 
   const onRegisterClick = () => {
@@ -140,19 +144,19 @@ const Login = (props) => {
                       name="chk"
                       class="custom-control-input"
                     />
-                    <label for="chk1" class="custom-control-label text-sm">
+                    {/* <label for="chk1" class="custom-control-label text-sm">
                       Remember me
-                    </label>
+                    </label> */}
                   </div>
-                  <a href="#" class="ml-auto mb-0 text-sm">
+                  {/* <a href="#" class="ml-auto mb-0 text-sm">
                     Forgot Password?
-                  </a>
+                  </a> */}
                 </div>
                 <div class="row mb-3 px-3">
                   <NavLink to={isLoggedIn ? "/" : "/login"}>
                     <button
                       type="submit"
-                      class="btn btn-blue text-center"
+                      class="btn btn-primary btn-hover-dark text-center"
                       onClick={handleLogin}
                     >
                       Login

@@ -3,13 +3,18 @@ import axios from "axios";
 import Login from "./Login";
 import { NavLink } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
 const Signup = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
   const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [type, setType] = useState("student");
   const [errors, setErrors] = useState("");
-
+  const navigate = useNavigate();
   // const onSignupClick = (event) => {
   // const PushData = async () => {
   // const {user} = await (await fetch('http://localhost:5000/get_user')).json();
@@ -69,22 +74,33 @@ const Signup = (props) => {
     // event.preventDefault()
     // const {username, email, password, password_confirmation} = this.state
     let user = {
+      full_name: name,
       username: name,
       email: email,
       password: password,
       password_confirmation: password_confirmation,
+      // mobile_no: mobile,
+      // address: address,
+      user_type: type,
+      type_code : type=='student' ? 'st' : 'tc'
     };
     console.log("sign up");
+    console.log(user);
     // axios.post('http://localhost:5000/sign_up', {user}, {withCredentials: true})
     const response = axios
       .post("http://localhost:5000/sign_up", { user })
       .then((response) => {
         if (response.data.status === "created") {
           props.handleLogin(response.data);
+          console.log("success")
+          console.log(response.data)
           // this.redirect()
           redirect();
         } else {
-          setErrors(response.data.errors);
+          setErrors(response.data);
+          console.log("error")
+          console.log(response.data.errors)
+          console.log(response.data)
         }
       })
       .catch((error) => console.log("api errors:", error));
@@ -93,7 +109,8 @@ const Signup = (props) => {
   const redirect = () => {
     // window.history.pushState({}, "", "/login");
     // return <NavLink to="/login"><Login/></NavLink>;
-    window.location.href = "/";
+    // window.location.href = "/";
+    navigate("/");
   };
 
   return (
@@ -234,10 +251,11 @@ const Signup = (props) => {
                               onChange={(e) => setName(e.target.value)}
                               value={name}
                               style={{ border: "1px solid green" }}
+                              placeholder="Enter Your Name"
                             />
-                            <label class="form-label" for="form3Example1c">
+                            {/* <label class="form-label" for="form3Example1c">
                               Your Name
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
@@ -251,10 +269,11 @@ const Signup = (props) => {
                               onChange={(e) => setEmail(e.target.value)}
                               value={email}
                               style={{ border: "1px solid green" }}
+                              placeholder="Enter Your Email"
                             />
-                            <label class="form-label" for="form3Example3c">
+                            {/* <label class="form-label" for="form3Example3c">
                               Your Email
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
@@ -268,10 +287,11 @@ const Signup = (props) => {
                               onChange={(e) => setPassword(e.target.value)}
                               value={password}
                               style={{ border: "1px solid green" }}
+                              placeholder="Enter Your Password"
                             />
-                            <label class="form-label" for="form3Example4c">
+                            {/* <label class="form-label" for="form3Example4c">
                               Password
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
@@ -287,25 +307,116 @@ const Signup = (props) => {
                               }
                               value={password_confirmation}
                               style={{ border: "1px solid green" }}
+                              placeholder="Confirm your password"
                             />
-                            <label class="form-label" for="form3Example4cd">
+                            {/* <label class="form-label" for="form3Example4cd">
                               Confirm your password
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
-                        <div class="form-check d-flex justify-content-center mb-5">
-                          <input
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input
+                              type="text"
+                              id="form3Example4cd"
+                              class="form-control"
+                              onChange={(e) =>
+                                setAddress(e.target.value)
+                              }
+                              value={address}
+                              style={{ border: "1px solid green" }}
+                              placeholder="Address"
+                            />
+                            {/* <label class="form-label" for="form3Example4cd">
+                              Confirm your password
+                            </label> */}
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input
+                              type="text"
+                              id="form3Example4cd"
+                              class="form-control"
+                              onChange={(e) =>
+                                setMobile(e.target.value)
+                              }
+                              value={mobile}
+                              style={{ border: "1px solid green" }}
+                              placeholder="Enter Mobile No"
+                              min="1" max="10"
+                            />
+                            {/* <label class="form-label" for="form3Example4cd">
+                              Confirm your password
+                            </label> */}
+                          </div>
+                        </div>
+
+                        {/* <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Type
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item">Student</a>
+    <a class="dropdown-item">Teacher</a>
+    
+  </div>
+</div> */}
+
+{/* <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input
+                              type="text"
+                              id="form3Example4cd"
+                              class="form-control"
+                              onChange={(e) =>
+                                setType(e.target.value)
+                              }
+                              value={type}
+                              style={{ border: "1px solid green" }}
+                              placeholder="Type"
+                            />
+                            
+                          </div>
+                        </div> */}
+
+                        <label for="type">Type:</label>
+
+<select name="type" id="type" onChange={e => setType(e.target.value)} value={type}>
+  <option value="">Student</option>
+  <option value="teacher">Teachers</option>
+</select>
+
+
+                        {/* <div class="form-check d-flex justify-content-center mb-5"> */}
+                          {/* <input
                             class="form-check-input me-2"
                             type="checkbox"
                             value=""
                             id="form2Example3c"
-                          />
+                            style={{color: "red", border: "1px solid green"}}
+                          /> */}
+                          {/* <input
+                              type="checkbox"
+                              id="form3Example4cd"
+                              class="form-control"
+                              onChange={(e) =>
+                                setPasswordConfirmation(e.target.value)
+                              }
+                              value={password_confirmation}
+                              style={{ border: "1px solid green" }}
+                              placeholder="Confirm your password"
+                            />
                           <label class="form-check-label" for="form2Example3">
                             I agree all statements in{" "}
                             <a href="#!">Terms of service</a>
-                          </label>
-                        </div>
+                          </label> */}
+                        {/* </div> */}
 
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button

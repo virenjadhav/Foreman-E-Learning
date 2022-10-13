@@ -6,7 +6,14 @@ class User < ApplicationRecord
     validates :email, uniqueness: true
 
     validates :username, presence: true
-    validates :username, uniqueness: true
+    # validates :username, uniqueness: true
     validates :username, length: { minimum: 4 }
+
+    validates :type_code, presence: true
+    validates :user_type, presence: true
+    # validates :username, presence: true
+    validates :full_name, presence: true
+    # validates :mobile_no, length: { minimum: 10}
+    # validates :address, length: { maximum: 50}
 
 end

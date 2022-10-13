@@ -88,6 +88,7 @@ import CourseDetails from "./components/CourseDetails";
 import Profile from "./components/Profile";
 import { NavLink } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
 // const courseCategory = [
 //   { id: 0, value: "Back-End" },
 //   { id: 1, value: "Front-End" },
@@ -96,6 +97,7 @@ import { NavLink } from "react-router-dom";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -110,6 +112,7 @@ function App() {
     } catch (e) {
       console.log("api errors:", e);
     }
+    // navigate("/login");
   }, []);
 
   const handleLogin = (data) => {
@@ -133,6 +136,8 @@ function App() {
   //   return <CourseContainer key={cat.id} categeory={cat.name} />;
   // });
 
+ 
+
   return (
     <div>
       {/* //     <Navbar /> */}
@@ -142,6 +147,7 @@ function App() {
       {/* {console.log(isLoggedIn)}
       {isLoggedIn? */}
       {/* {window.history.pushState({}, "", '/login')} */}
+      {/* {window.location.href = "/login"} */}
       <Routes>
         {/* <Route path="/login" element={<Login handleLogin={handleLogin}/>} /> */}
         {/* <Route path="/sign_up" element={<Signup handleLogin={handleLogin} />} /> */}
