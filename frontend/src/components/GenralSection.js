@@ -20,7 +20,7 @@ import shape24 from "../images/shape/shape-24.webp";
 import author11 from "../images/author/author-11.webp";
 import "../css/styles.css";
 // import "../css/About.scss";
-function GenralSection() {
+function GenralSection({pageTitle}) {
   return (
     <div className="GenralSectionContainer">
       {/* <div className="container mt-0">
@@ -56,14 +56,16 @@ function GenralSection() {
         <div class="container">
           {/* <!-- Page Banner Start --> */}
           <div class="page-banner-content">
-            <ul class="breadcrumb">
+            {/* <ul class="breadcrumb">
               <li>
                 <a href="#">Home</a>
               </li>
               <li class="active">About</li>
-            </ul>
+            </ul> */}
             <h2 class="title">
-              About <span>EduLe.</span>
+              {/* About */}
+              {pageTitle}
+               {/* <span>EduLe.</span> */}
             </h2>
           </div>
           {/* <!-- Page Banner End --> */}

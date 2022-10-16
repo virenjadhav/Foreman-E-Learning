@@ -12,18 +12,23 @@ class SessionController < ApplicationController
     # end
 
     def create 
-        puts("hello")
-        puts(session_params[:email])
+        # puts("hello")
+        # puts(session_params[:email])
         @user = User.find_by_email(session_params[:email])
 
         if @user && @user.authenticate(session_params[:password])
             # login!
-            puts("rrrr")
+            # puts("rrrr")
             session[:user_id] = @user.id
-            puts("rrrr")
+            # puts("rrrr")
+            # puts session[:user_id]
             # Current.user ||= User.find(session[:user_id]) if session[:user_id]
-
+# puts "Current"
+# user1 = User.find(session[:user_id]) if session[:user_id]
+# @current_user ||= User.find(session[:user_id]) if session[:user_id]
+# puts @current_user
             # puts(Current.user)
+            # kjk
             # render json:  logged_in => true, user = @user 
             # render json: @post, status: :created, location: @post
             # render json:  @user, logged_in: true
@@ -41,15 +46,18 @@ class SessionController < ApplicationController
     end
 
     def is_logged_in
-    
-        if logged_in? && current_user
+        puts "You are not logged in"
+        puts session[:user_id]
+        @current_user ||= User.find(session[:user_id]) if session[:user_id]
+        if !!session[:user_id] && @current_user
+            # user = Current.user
             # render :json =>{
             #     logged_in => true,
             #     user= current_user
             # }
             # render json:  current_user
             # return false
-            render :json => {logged_in: true, user: current_user}
+            render :json => {logged_in: true, user: @current_user}
         else
             # render :json =>{
             #     logged_in => false,

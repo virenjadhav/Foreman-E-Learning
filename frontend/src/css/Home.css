@@ -82,6 +82,11 @@
       color: #309255;
       border: 1px solid #309255;
   }
+
+ .categoryList.active{
+  color: #309255;
+  border: 1px solid #309255;
+ }
   
   .prev, .next{
     /* border: 0; */

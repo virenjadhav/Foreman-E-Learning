@@ -1,0 +1,11 @@
+input {
+    border-color: black;
+    border-style: solid;
+    border-radius: 40px;
+    /* border: 1px solid black; */
+}
+
+.border{
+    border: 1 solid #ced4da;
+    border: 1 solid #ced4da;
+}

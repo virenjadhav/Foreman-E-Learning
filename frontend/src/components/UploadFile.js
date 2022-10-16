@@ -143,9 +143,9 @@ import React, { useEffect, useState, Component, createContext } from "react";
 
 // // import React, { Component } from "react";
 
-export const AppContext = createContext(null);
+// export const AppContext = createContext(null);
 
-const UploadFile = () => {
+const UploadFile = ({contentType, contentId, title, setImagePath , setMessage}) => {
   // state = {
     //       title: 'id',
     //       body: 'id hai',
@@ -154,23 +154,23 @@ const UploadFile = () => {
         
     //   };
 
-    const [title, setTitle] = useState("id");
-    const [body, setBody] = useState("body");
+    // const [title, setTitle] = useState("id");
+    // const [body, setBody] = useState("body");
     const [featured_image, setFeaturedImage] = useState(null);
-    const [image_path, setImagePath] = useState(AppContext);
+    // const [image_path, setImagePath] = useState(AppContext);
 
-  useEffect(() => {
+//   useEffect(() => {
   
-const fetchsome = async () => {
-  // console.log("componentDidMount")
-  const response = await axios.get("http://localhost:5000/posts");
-  // console.log("response")
-  // this.setState({image_path: response.data.featured_image_url})
-  setImagePath(response.data.featured_image_url);
-  // console.log(response);
-}
-fetchsome();
-},[]);
+// const fetchsome = async () => {
+//   // console.log("componentDidMount")
+//   const response = await axios.get("http://localhost:5000/posts");
+//   // console.log("response")
+//   // this.setState({image_path: response.data.featured_image_url})
+//   // setImagePath(response.data.featured_image_url);
+//   console.log(response);
+// }
+// fetchsome();
+// },[]);
 
   // handleChange = (event) => {
   //   this.setState({ [event.target.name]: event.target.value });
@@ -184,44 +184,86 @@ fetchsome();
 
   const handleSubmit = event => {
         event.preventDefault();
+        // console.log('api errors:')
+        if (contentId == '' || contentId == null || contentType==null || contentType == ''){
+          // setMessage()
+          return;
+        }
+        if(featured_image == null || featured_image == ''){
+            return;
+        }
         const formData = new FormData();
-        formData.append('title', title);
-        formData.append('body', body);
+        // formData.append('title', title);
+        // formData.append('body', body);
+        formData.append('content_id', contentId);
+    formData.append('content_type', contentType);
         formData.append('featured_image', featured_image);
-        for (var key of formData.entries()) {
-          console.log(key[0] + ', ' + key[1]);
-      }
-        console.log("formData");
-        console.log(formData);
+      //   for (var key of formData.entries()) {
+      //     console.log(key[0] + ', ' + key[1]);
+      // }
+        console.log("featured_image");
+        // console.log(formData);
         console.log(featured_image)
-        fetch('http://localhost:5000/posts', {
+        fetch('http://localhost:5000/set_image', {
           method: 'POST',
           body: formData
+        }).then(response => response.json())
+        // .then(response => console.log(response))
+        .then(data => {
+          console.log(data);
+          setImagePath(data.post.featured_image_url)
+          setMessage(data.message);
         })
         .catch(error=>console.log(error));
+        // const post = async () => {
+        //   const response = await axios.post('http://localhost:5000/set_image',{formData});
+        //   console.log(response);
+        //   // setImagePath
+        // }
+        // post();
+        setFeaturedImage(null);
       };
       
 
 
-  return (
-            <div 
-            // onclick={this.handleChange}
+  return ( 
+     
+             <div class="card" style={{maxWidth: "500px"}}>
+            {/* <img src={image_path} alt=""/> */}
+            {/* <div 
             >
               <h1>GeeksforGeeks</h1>
               <h3>File Upload using React!</h3>
               <div>
                 <input type="file" 
-                // onChange={this.onFileChange}
                 onChange={onImageChange} 
+                style={{border: "none"}}
                 />
                 <button 
-                // onClick={this.onFileUpload}
                 onClick={handleSubmit}
                 >Upload!</button>
               </div>
-              <img src={image_path} alt=""/>
-              {/* {this.fileData()} */}
+             
+              <a href={image_path} target="_blank" >click here </a>
+              
+            </div> */}
+            <h5 className="text-center card-header">{title}</h5>
+            <div class="card-body">
+              
+              <p class="card-text"><input type="file" 
+                          // value={featured_image}
+                          onChange={onImageChange} 
+                          style={{border: "none", marginTop: "2%"}}
+                          /></p>
+              {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+              <button 
+                          // onClick={this.onFileUpload}
+                          onClick={handleSubmit}
+                          className="btn btn-primary btn-hover-dark justify-content-center"
+                          style={{color: "white", backgroundColor: "#309255", border: "1px solid green", margin: "3% 5%"}}
+                          >Upload</button>
             </div>
+          </div>
           );
   
 }
