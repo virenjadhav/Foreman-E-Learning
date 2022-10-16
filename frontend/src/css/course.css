@@ -860,7 +860,7 @@ i[class*=" flaticon-"]:before, i[class^=flaticon-]:before {
     padding-bottom: 5px;
 }
 
-.courses-details .courses-details-admin .admin-author .author-content .name {
+/* .courses-details .courses-details-admin .admin-author .author-content .name {
     font-size: 17px;
     font-weight: 500;
     color: #212832;
@@ -868,9 +868,9 @@ i[class*=" flaticon-"]:before, i[class^=flaticon-]:before {
     line-height: 22px;
     position: relative;
     text-decoration: none;
-}
+} */
 
-.courses-details .courses-details-admin .admin-author .author-content .name::after {
+/* .courses-details .courses-details-admin .admin-author .author-content .name::after {
     content: '||';
     font-size: 24px;
     font-weight: 300;
@@ -878,19 +878,19 @@ i[class*=" flaticon-"]:before, i[class^=flaticon-]:before {
     position: relative;
     margin: 0 18px;
     bottom: -2px;
-}
+} */
 *, *::after, *::before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-.courses-details .courses-details-admin .admin-author .author-content .Enroll {
+/* .courses-details .courses-details-admin .admin-author .author-content .Enroll {
     font-size: 14px;
     font-weight: 400;
     color: #309255;
     display: inline-block;
     line-height: 22px;
-}
+} */
 
 .courses-details .courses-details-admin .admin-rating {
     display: -webkit-box;

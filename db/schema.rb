@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_181359) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_15_202218) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -45,6 +45,32 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_181359) do
     t.integer "ranked"
   end
 
+  create_table "course_details", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "course_detail_img_path", limit: 500
+    t.string "teacher_profile_path", limit: 500
+    t.string "user_full_name", limit: 50
+    t.integer "user_id"
+    t.string "category", limit: 50
+    t.string "course_title", limit: 500
+    t.integer "duration_hours"
+    t.integer "duration_min"
+    t.integer "lecture"
+    t.float "discount_price"
+    t.float "original_price"
+    t.float "rating"
+    t.integer "categerios_id"
+    t.string "categerios_code", limit: 5
+    t.string "description", limit: 500
+    t.string "Curriculum", limit: 500
+    t.string "Certification", limit: 500
+    t.string "Rating_desc", limit: 500
+    t.string "video_link", limit: 1000
+    t.integer "course_id"
+    t.integer "subject_id"
+    t.string "subject_code", limit: 5
+    t.index ["course_id"], name: "course_id", unique: true
+  end
+
   create_table "courses", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "course_img_path", limit: 500
     t.string "teacher_profile_path", limit: 500
@@ -60,13 +86,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_181359) do
     t.float "rating"
     t.integer "categerios_id"
     t.string "categerios_code", limit: 5
+    t.string "subject_code", limit: 5
+    t.integer "subject_id"
+    t.string "video_link", limit: 1000
+    t.string "Rating_desc", limit: 500
+    t.string "Certification", limit: 500
+    t.string "Curriculum", limit: 500
+    t.string "description", limit: 1000
   end
 
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
+    t.integer "content_id"
+    t.string "content_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subjects", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "subject_code", limit: 5
+    t.integer "course_id"
+    t.string "course_code", limit: 5
+    t.string "subject_name", limit: 50
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

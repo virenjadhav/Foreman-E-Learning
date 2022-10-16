@@ -1,14 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CourseContainer from "./CourseContainer";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 import "../css/Home.css";
 
-const CategeryScroll = ({ categerios, setCategory }) => {
+const CategeryScroll = ({ categerios, setCategory, setSubject }) => {
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
   const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
+  const [ selectedCategory, setselectedCategory] = useState('');
   const scrl = useRef();
   // const [selectCategory, setCategory] = useState('');
+
+//   useEffect(() => {
+// if(categerios[0]){
+//   setselectedCategory(categerios[0].code)
+// }
+//   },[])
 
   const slide = (shift) => {
     // console.log("scroll");
@@ -31,7 +38,12 @@ const CategeryScroll = ({ categerios, setCategory }) => {
       setscrolEnd(false);
     }
   };
-
+// const onCategoryClick = (cat) => {
+//   setCategory(cat.code);
+//   // console.log('onCategoryClick')
+//   // console.log(cat)
+//   setSubject(cat);
+// }
   return (
     <div className="categoryContainer">
       {/* //Left Button */}
@@ -47,10 +59,12 @@ const CategeryScroll = ({ categerios, setCategory }) => {
 
       <ul className="categoryUL" ref={scrl}>
         {categerios ? (
-          categerios.map((cat) => (
+          categerios.map((cat, index) => (
             //  <CourseContainer key={cat.id} categeory={cat.name} />
-            <li className="categoryList" onClick={(e) => setCategory(cat.code)}>
+
+          <li className={`categoryList  ${selectedCategory=='' ? (index==0?"active":""):(selectedCategory == cat.code ? "active" : "")} `} onClick={(e) => {setSubject(cat);setCategory(cat);setselectedCategory(cat.code)}}>
               {cat.name}
+              
             </li>
           ))
         ) : (

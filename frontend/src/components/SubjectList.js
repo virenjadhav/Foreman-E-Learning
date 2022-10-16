@@ -2,7 +2,7 @@ import React from "react";
 
 import SubjectCard from "./SubjectCard";
 
-const SubjectList = ({ subject }) => {
+const SubjectList = ({ subjects }) => {
   //   const renderSubject = subject.map((type) => {
   //     return (
   //       <div class="col-sm-4">
@@ -14,11 +14,12 @@ const SubjectList = ({ subject }) => {
   //   return <div className="container">{renderSubject}</div>;
   return (
     <div className="row">
-      {subject.map((type) => (
+      {subjects.map((type) => (
         <div class="col-sm-4 mb-2">
           <SubjectCard subject={type} />{" "}
         </div>
       ))}
+      {/* {console.log(subjects)} */}
       {/* // {post.map ( pos =>{
         //           return <div key={pos.id}>
         //             <h1>{pos.title}</h1>

@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useEffect , useState} from "react";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { AiFillCaretRight } from "react-icons/ai";
@@ -25,11 +26,27 @@ import author4 from "../images/author/4.png";
 import author5 from "../images/author/5.png";
 import author6 from "../images/author/6.png";
 import CourseCard from "./CourseCard";
+import CourseList from "./CourseList";
+import CourseContainer from "./CourseContainer";
 
-const CourseBlog = () => {
-  return (
-    <section className="blog-area pd-top-120 pd-bottom-120">
-      <div className="container m-1">
+const CourseBlog = ({subject}) => {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() =>{
+    const getCourse = async() => {
+      // console.log("getCourse")
+      // console.log(subject)
+      const response = await axios.post("http://localhost:5000/get_course",{subject});
+      // const response = await axios.post("http://localhost:5000/get_subject", {categeory});
+      // console.log(response.data.courses);
+      setCourses(response.data.courses);
+    }
+    getCourse();
+  },[])
+  return (<div>
+    {/* // <section className="blog-area pd-top-120 pd-bottom-120"> */}
+      {/* <div className="container m-1"> */}
+      <CourseContainer courses={courses} subject={subject}/>
         <div className="row">
           {/* <div className="col-lg-4 order-lg-0 col-12">
             <div className="td-sidebar mt-5 mt-lg-0">
@@ -458,10 +475,14 @@ const CourseBlog = () => {
 
               {/* <div className="col-md-6">
                 <div className="single-course-inner">
-                  <CourseCard />
+                  {/* <CourseCard /> 
+                  {console.log(courses)}
+                  {courses.map(course => {
+                     <CourseContainer courses={courses}/> 
+                  })}
                 </div>
-              </div>
-              <div className="col-md-6">
+              </div> */}
+              {/* <div className="col-md-6">
                 <div className="single-course-inner">
                   <CourseCard />
                 </div>
@@ -543,8 +564,9 @@ const CourseBlog = () => {
             </nav> */}
           </div>
         </div>
-      </div>
-    </section>
+      {/* </div> */}
+    {/* // </section> */}
+    </div>
   );
 };
 

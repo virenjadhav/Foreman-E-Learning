@@ -11,7 +11,7 @@ import profile04 from "../images/4.png";
 
 function Team() {
   return (
-    <div className="teamSection container">
+    <div className="teamSection container mt-5">
       <h4 className="teamTitle text-center">Meet Our Team</h4>
       <h1 className="teamHeading  text-center">Our Creative Team</h1>
       <div className="teamContainer">
