@@ -55,6 +55,7 @@ class PostsController < ApplicationController
     # puts "index kjlkjlkj"
       # @posts = Post.all.to_json(include:[:featured_image])
       # puts "hello"
+      begin
       puts params
       # @posts = Post.last
       # @posts = Post.find_by_sql("select * from posts where content_type='#{params[:post]["content_type"]}' and content_id = #{params[:post]["content_id"]} order by id desc limit 1")
@@ -64,9 +65,13 @@ class PostsController < ApplicationController
       # @posts= @posts.last
       # render json: @posts
       render json: PostSerializer.new(@posts).serializable_hash[:data][:attributes]
+    rescue Exception => exc
+      render :json => {result:"error", message:exc.message}
   end
+end
   def create
     puts params
+    begin
       @Post = Post.create(post_params)
       # @Post = Post.new(post_params)
       if @Post.save
@@ -77,7 +82,10 @@ class PostsController < ApplicationController
     else
         render :json => {result:"Error", message:"#{@Post.errors.full_messages}"}
     end
+  rescue Exception => exc
+    render :json => {result:"error", message:exc.message}
   end
+end
   private
   def post_params
       params.permit(:content_type, :content_id, :featured_image)

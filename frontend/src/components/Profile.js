@@ -3,7 +3,7 @@ import axios from "axios";
 import {UserContext} from '../contexts/UserContext'
 // import axios from 'axios'
 import UploadFile from './UploadFile'
-
+import defaultUser from '../images/defaultUser.jpg'
 
 // export const AppContext =
 export const AppContext = createContext(null);

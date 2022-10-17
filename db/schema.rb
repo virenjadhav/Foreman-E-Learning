@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_202218) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_183407) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,6 +43,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_202218) do
     t.string "name", limit: 50
     t.string "code", limit: 5
     t.integer "ranked"
+  end
+
+  create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "user_id"
+    t.string "user_name"
+    t.integer "categerios_id"
+    t.string "categerios_code"
+    t.integer "subject_id"
+    t.string "subject_code"
+    t.string "user_type"
+    t.integer "teacher_id"
+    t.string "teacher_name"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "course_details", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
