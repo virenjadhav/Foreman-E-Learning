@@ -90,10 +90,13 @@ if(user.length <= 0){
 //   return;
 // }
 
-if(title == '' || videoLink == '' || categoryType == '' || subjectType == '' || courseImage == null || notes == null){
+console.log('uploadCourse')
+if(title == '' || videoLink == '' || categoryType == '' || subjectType == '' || courseImage == null ){
   setMessage("Mandatory field (*) cannot be blank");
   return;
 }
+
+console.log('Course')
 
 // console.log(courseImage);
 // console.log(notes);
@@ -121,11 +124,17 @@ if(title == '' || videoLink == '' || categoryType == '' || subjectType == '' || 
             // console.log("then")
               // console.log(response.data.course)
               
-            setMessage(response.data.message);
+            // setMessage(response.data.message);
             // setuploadCourse(response.data.course);
             
-          uploadCourseImage(response.data.subject_id);
+            // console.log(response.data.subject_id)
+            // console.log(subject)
+            // console.log(response.data.course.id)
+          // uploadCourseImage(response.data.subject_id);
+          uploadCourseImage(response.data.course.id);
           // uploadNotes(response.data.subject_id);
+
+          // uploadCourseImage(subject.course_id);
 
 
             });

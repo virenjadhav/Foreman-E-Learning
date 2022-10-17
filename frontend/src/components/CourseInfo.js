@@ -147,6 +147,13 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                         Reviews
                       </button>
                     </li>
+
+                    <li>
+                      <button data-bs-toggle="tab" data-bs-target="#comments">
+                        Comments
+                      </button>
+                    </li>
+                    
                   </ul>
                 </div>
                 {/* <!-- Details Tab Menu End --> */}
@@ -560,6 +567,514 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                         <div className="container">
                           <Review />
                         </div>
+
+                        {/* <div class="reviews-btn">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-hover-dark review-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#reviewsModal"
+                          >
+                            Write A Review
+                          </button>
+                        </div> */}
+
+                        {/* <!-- Reviews Form Modal Start --> */}
+                        <div class="modal fade" id="reviewsModal">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Add a Review</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+
+                              {/* <!-- Reviews Form Start --> */}
+                              <div class="modal-body reviews-form">
+                                <form action="#">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <input
+                                          type="text"
+                                          placeholder="Enter your name"
+                                        />
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-6">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <input
+                                          type="text"
+                                          placeholder="Enter your Email"
+                                        />
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-12">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="reviews-rating">
+                                        <label>Rating</label>
+                                        <ul id="rating" class="rating">
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="1"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="2"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="3"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="4"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            // class="star"
+                                            title="Poor"
+                                            data-value="5"
+                                            value="5"
+                                            id="star5li"
+                                            onClick={onStarClick}
+                                            // onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar
+                                              size="15"
+                                              id="star5*"
+                                            />
+                                          </li>
+                                        </ul>
+                                        {/* <span className="rating">
+                                          <MdOutlineStar size="15" />
+                                          <MdOutlineStar size="15" />
+                                          <MdOutlineStar size="15" />
+                                          <MdOutlineStarHalf size="15" />
+                                          <MdOutlineStarOutline size="15" />
+                                        </span> */}
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-12">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <textarea placeholder="Write your comments here"></textarea>
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-12">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <button class="btn btn-primary btn-hover-dark">
+                                          Submit Review
+                                        </button>
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              {/* <!-- Reviews Form End --> */}
+                            </div>
+                          </div>
+                        </div>
+                        {/* <!-- Reviews Form Modal End --> */}
+                      </div>
+                      {/* <!-- Tab Reviews End --> */}
+                    </div>
+
+                    <div class="tab-pane fade" id="comments">
+                      {/* <!-- Tab Reviews Start --> */}
+                      <div class="tab-reviews">
+                        <h3 class="tab-title">Comments:</h3>
+
+                        {/* <div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> */}
+<div className="container">
+{/* <div class=""> */}
+                {/* <div class="row text-center">
+                    <div class="col-sm-8">
+                    <div class="card p-3 m-2" > */}
+  {/* <div style={{height: '500px !important', overflowY:"scroll !important"}} data-spy="scroll"> */}
+  <div className="row container vertical-scrollable" style={{overflowY: "scroll", height: "400px"}} >
+    <div className="col-md-12" >
+  <div className="row">
+  <div className="col-md-12">
+ 
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={AuthorImage} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Viren Jadhav</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr/>
+<div className="row mt-3">
+  <div className="col-md-12">
+    <div className="container">
+<textarea class="form-control" style={{border: '1px solid green'}} placeholder="write a comment..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<div className="row mt-1 justify-content-center">
+  <div className="col-md-12 justify-content-center">
+  <div className="container">
+<button className="btn btn-primary btn-hover-dark">Add Comment</button>
+</div>
+</div>
+</div>
+{/* </div> */}
+</div>
+
+
+
+
+
+
+
+                        {/* <div class="reviews-wrapper reviews-active"> */}
+                        {/* <div class="swiper-container"> */}
+                        {/* <div class="swiper-wrapper"> */}
+
+                        {/* <div class="single-review swiper-slide">
+                                <div class="review-author">
+                                  <div class="author-thumb">
+                                    <img src={author6} alt="Author" />
+                                    <i class="icofont-quote-left"></i>
+                                  </div>
+                                  <div class="author-content">
+                                    <h4 class="name">Sara Alexander</h4>
+                                    <span class="designation">
+                                      Product Designer, USA
+                                    </span>
+                                    <span class="rating-star">
+                                      <span
+                                        class="rating-bar"
+                                        style={{ width: "100%;" }}
+                                      ></span>
+                                    </span>
+                                    
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum has been the industry's standard
+                                  dummy text since the 1500 when unknown printer
+                                  took a galley of type and scrambled to make
+                                  type specimen book has survived not five
+                                  centuries but also the leap into electronic
+                                  type and book.
+                                </p>
+                              </div> */}
+
+                        {/* <div class="single-review swiper-slide">
+                                <div class="review-author">
+                                  <div class="author-thumb">
+                                    <img src={author7} alt="Author" />
+                                    <i class="icofont-quote-left"></i>
+                                  </div>
+                                  <div class="author-content">
+                                    <h4 class="name">Karol Bachman</h4>
+                                    <span class="designation">
+                                      Product Designer, USA
+                                    </span>
+                                    <span class="rating-star">
+                                      <span
+                                        class="rating-bar"
+                                        style={{ width: "100%;" }}
+                                      ></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum has been the industry's standard
+                                  dummy text since the 1500 when unknown printer
+                                  took a galley of type and scrambled to make
+                                  type specimen book has survived not five
+                                  centuries but also the leap into electronic
+                                  type and book.
+                                </p>
+                              </div> */}
+
+                        {/* <div class="single-review swiper-slide">
+                                <div class="review-author">
+                                  <div class="author-thumb">
+                                    <img src={author3} alt="Author" />
+                                    <i class="icofont-quote-left"></i>
+                                  </div>
+                                  <div class="author-content">
+                                    <h4 class="name">Gertude Culbertson</h4>
+                                    <span class="designation">
+                                      Product Designer, USA
+                                    </span>
+                                    <span class="rating-star">
+                                      <span
+                                        class="rating-bar"
+                                        style={{ width: "100%;" }}
+                                      ></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum has been the industry's standard
+                                  dummy text since the 1500 when unknown printer
+                                  took a galley of type and scrambled to make
+                                  type specimen book has survived not five
+                                  centuries but also the leap into electronic
+                                  type and book.
+                                </p>
+                              </div> */}
+
+                        {/* </div> */}
+
+                        {/* <div class="swiper-pagination"></div>
+                          </div> */}
+                        {/* </div> */}
+
+                        {/* <div className="container">
+                          <Review />
+                        </div> */}
 
                         {/* <div class="reviews-btn">
                           <button
