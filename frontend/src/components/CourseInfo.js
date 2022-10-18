@@ -30,11 +30,16 @@ import author6 from "../images/author/author-06.jpg";
 import author7 from "../images/author/author-07.jpg";
 import Review from "./Review";
 
-const CourseInfo = () => {
+
+
+import CourseImage from "../images/defaultCourse.jpg";
+import AuthorImage from "../images/defaultUser.png";
+
+const CourseInfo = ({course, courseImg, teacherProfile}) => {
   const [starValue, setStarValue] = useState(0);
   const onStarClick = (event) => {
     // console.log(event.nativeEvent.path[2]);
-    console.log(event.nativeEvent.path[2].dataset.value);
+    // console.log(event.nativeEvent.path[2].dataset.value);
     // console.log(event.nativeEvent);
     // console.log(event);
   };
@@ -47,14 +52,23 @@ const CourseInfo = () => {
             {/* <!-- Courses Details Start --> */}
             <div class="courses-details">
               <div class="courses-details-images">
-                <img src={detailImg} alt="Courses Details" />
-                <span class="tags">Finance</span>
+                <img 
+                // src={detailImg}
+                src={courseImg==''?CourseImage:courseImg}
+                 alt="Courses Details" />
+                <span class="tags">
+                  {/* Finance */}
+                  {course.category.toUpperCase()}/{course.subject_code.toUpperCase()}
+                  {/* {course.id} */}
+                </span>
 
                 <div class="courses-play">
                   <img src={playImg} alt="Play" />
                   <a
                     class="play video-popup"
-                    href="https://www.youtube.com/watch?v=Wif4ZkwC0AM"
+                    // href="https://www.youtube.com/watch?v=Wif4ZkwC0AM"
+                    href={course.video_link}
+                    target="_blank"
                   >
                     <i>
                       <IoPlayOutline size="40" className="flaticon-play" />
@@ -64,21 +78,27 @@ const CourseInfo = () => {
               </div>
 
               <h2 class="title">
-                Finance & Investment Series: Learn to Budget and Calculate Your
-                Net Worth.
+                {/* Finance & Investment Series: Learn to Budget and Calculate Your
+                Net Worth. */}
+                {course.course_title}
               </h2>
 
               <div class="courses-details-admin">
                 <div class="admin-author">
                   <div class="author-thumb">
-                    <img src={author1} alt="Author" />
+                    <img 
+                    // src={author1}
+                    src={teacherProfile==''?AuthorImage:teacherProfile}
+                     alt="Author" />
                   </div>
-                  <div class="author-content">
+                  {/* <div class="author-content">
                     <a class="name" href="#">
-                      Pamela Foster
+                      {/* Pamela Foster 
+                      {course.user_full_name}
                     </a>
-                    <span class="Enroll">286 Enrolled Students</span>
-                  </div>
+                     <span class="Enroll">286 Enrolled Students</span> 
+                  </div> */}
+                  <a className='' style={{margin: "0 10px", color: "#212832" , cursor: "auto"}}>{course.user_full_name}</a>
                 </div>
                 {/* <div class="admin-rating">
                   <span class="rating-count">4.9</span>
@@ -127,6 +147,13 @@ const CourseInfo = () => {
                         Reviews
                       </button>
                     </li>
+
+                    <li>
+                      <button data-bs-toggle="tab" data-bs-target="#comments">
+                        Comments
+                      </button>
+                    </li>
+                    
                   </ul>
                 </div>
                 {/* <!-- Details Tab Menu End --> */}
@@ -140,14 +167,15 @@ const CourseInfo = () => {
                         <div class="description-wrapper">
                           <h3 class="tab-title">Description:</h3>
                           <p>
-                            Lorem Ipsum is simply dummy text of the printing and
+                            {/* Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry. Lorem Ipsum has been the
                             industry's standard dummy text ever since the 1500s
                             when an unknown printer took a galley of type and
-                            scrambled it to make a type specimen book.
+                            scrambled it to make a type specimen book. */}
+                            {course.description}
                           </p>
-                          <p>
-                            Lorem Ipsum is simply dummy text of the printing and
+                          {/* <p>
+                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry. Lorem Ipsum has been the
                             industry's standard dummy text ever since the 1500s
                             when an unknown printer took a galley of type and
@@ -156,12 +184,12 @@ const CourseInfo = () => {
                             into electronic typesetting, remaining essentially
                             unchanged. It was popularsed in the 1960 with
                             release containing Lorem Ipsum passages desktop
-                            publishing software.
-                          </p>
+                            publishing software. 
+                          </p>*/}
                         </div>
                         <div class="description-wrapper">
                           <h3 class="tab-title">Curriculum:</h3>
-                          <p>
+                          {/* <p>
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry. Lorem Ipsum has been the
                             industry's standard dummy text ever since the 1500s
@@ -172,11 +200,12 @@ const CourseInfo = () => {
                             unchanged. It was popularsed in the 1960 with
                             release containing Lorem Ipsum passages desktop
                             publishing software.
-                          </p>
+                          </p> */}
+                          {course.Curriculum}
                         </div>
                         <div class="description-wrapper">
                           <h3 class="tab-title">Certification:</h3>
-                          <p>
+                          {/* <p>
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry. Lorem Ipsum has been the
                             industry's standard dummy text ever since the 1500s
@@ -187,7 +216,8 @@ const CourseInfo = () => {
                             unchanged. It was popularsed in the 1960 with
                             release containing Lorem Ipsum passages desktop
                             publishing software.
-                          </p>
+                          </p> */}
+                          {course.Certification}
                         </div>
                       </div>
                       {/* <!-- Tab Description End --> */}
@@ -198,7 +228,7 @@ const CourseInfo = () => {
                         <h3 class="tab-title">Course Instructor:</h3>
 
                         <div class="row">
-                          <div class="col-md-3 col-6">
+                          <div class="col-md-3 col-12 justify-content-center">
                             {/* <!-- Single Team Start --> */}
                             <div class="single-team">
                               <div class="team-thumb">
@@ -214,7 +244,7 @@ const CourseInfo = () => {
 
                                  
                                   <span class="text">(rating)</span> */}
-                                <div>
+                                {/* <div>
                                   <span className="my-card-rating">
                                     <h4 className="rating-count">4.9</h4>
                                     <span className="rating mt-1">
@@ -222,29 +252,25 @@ const CourseInfo = () => {
                                     </span>
                                     <h4 className="rating-text">(rating)</h4>
                                   </span>
-                                </div>
+                                </div> */}
                                 {/* </div> */}
-                                <h4 class="name">Margarita James</h4>
-                                <span class="designation">MSC, Instructor</span>
+                                <h4 class="name">
+                                  {/* Margarita James */}
+                                  {course.user_full_name}
+                                  </h4>
+                                {/* <span class="designation">MSC, Instructor</span> */}
                               </div>
                             </div>
                             {/* <!-- Single Team End --> */}
                           </div>
-                          <div class="col-md-3 col-6">
-                            {/* <!-- Single Team Start --> */}
+                          {/* <div class="col-md-3 col-6">
+                            
                             <div class="single-team">
                               <div class="team-thumb">
                                 <img src={author2} alt="Author" />
                               </div>
                               <div class="team-content">
-                                {/* <div class="rating">
-                                  <span class="count">4.9</span>
-                                  {/* <i class="icofont-star"></i> 
-                                  <i>
-                                    <MdOutlineStar class="icofont-star" />
-                                  </i>
-                                  <span class="text">(rating)</span>
-                                </div> */}
+                                
                                 <div>
                                   <span className="my-card-rating">
                                     <h4 className="rating-count">4.9</h4>
@@ -258,23 +284,16 @@ const CourseInfo = () => {
                                 <span class="designation">BBA, Instructor</span>
                               </div>
                             </div>
-                            {/* <!-- Single Team End --> */}
-                          </div>
-                          <div class="col-md-3 col-6">
-                            {/* <!-- Single Team Start --> */}
+                            
+                          </div> */}
+                          {/* <div class="col-md-3 col-6">
+                            
                             <div class="single-team">
                               <div class="team-thumb">
                                 <img src={author3} alt="Author" />
                               </div>
                               <div class="team-content">
-                                {/* <div class="rating">
-                                  <span class="count">4.9</span>
-                                  <i class="icofont-star"></i>
-                                  <i>
-                                    <MdOutlineStar class="icofont-star" />
-                                  </i>
-                                  <span class="text">(rating)</span>
-                                </div> */}
+                                
                                 <div>
                                   <span className="my-card-rating">
                                     <h4 className="rating-count">4.9</h4>
@@ -288,23 +307,16 @@ const CourseInfo = () => {
                                 <span class="designation">MBA, Instructor</span>
                               </div>
                             </div>
-                            {/* <!-- Single Team End --> */}
-                          </div>
-                          <div class="col-md-3 col-6">
-                            {/* <!-- Single Team Start --> */}
+                           
+                          </div> */}
+                          {/* <div class="col-md-3 col-6">
+                            
                             <div class="single-team">
                               <div class="team-thumb">
                                 <img src={author4} alt="Author" />
                               </div>
                               <div class="team-content">
-                                {/* <div class="rating">
-                                  <span class="count">4.9</span>
-                                  <i class="icofont-star"></i>
-                                  <i>
-                                    <MdOutlineStar class="icofont-star" />
-                                  </i>
-                                  <span class="text">(rating)</span>
-                                </div> */}
+                                
                                 <div>
                                   <span className="my-card-rating mt-1">
                                     <h4 className="rating-count">4.9</h4>
@@ -318,15 +330,15 @@ const CourseInfo = () => {
                                 <span class="designation">BBS, Instructor</span>
                               </div>
                             </div>
-                            {/* <!-- Single Team End --> */}
-                          </div>
+                            
+                          </div> */}
                         </div>
 
                         <div class="row gx-10">
-                          <div class="col-lg-6">
+                          {/* <div class="col-lg-12">
                             <div class="tab-rating-content">
-                              <h3 class="tab-title">Rating:</h3>
-                              <p>
+                              <h3 class="tab-title">Rating:</h3> */}
+                              {/* <p>
                                 Lorem Ipsum is simply dummy text of printing and
                                 typesetting industry. Lorem Ipsum has been the i
                                 dustry's standard dummy text ever since the 1500
@@ -340,14 +352,15 @@ const CourseInfo = () => {
                                 Lorem Ipsum is simply dummy text of printing and
                                 dustry's standard dummy text ever since the 1500
                                 unknown printer took a galley of type.
-                              </p>
+                              </p> */}
+                              {/* {course.Rating_desc}
                             </div>
-                          </div>
-                          <div class="col-lg-6">
+                          </div> */}
+                          {/* <div class="col-lg-6">
                             <div class="tab-rating-box">
                               <span class="count">
                                 4.8
-                                {/* <i class="icofont-star"></i> */}
+                                
                                 <MdOutlineStar
                                   className="m-1"
                                   size="15"
@@ -358,12 +371,7 @@ const CourseInfo = () => {
 
                               <div class="rating-box-wrapper">
                                 <div class="single-rating">
-                                  {/* <span class="rating-star">
-                                    <span
-                                      class="rating-bar"
-                                      style={{ width: "100%;" }}
-                                    ></span>
-                                  </span> */}
+                                  
                                   <span className="rating">
                                     <MdOutlineStar size="15" />
                                     <MdOutlineStar size="15" />
@@ -380,12 +388,7 @@ const CourseInfo = () => {
                                 </div>
 
                                 <div class="single-rating">
-                                  {/* <span class="rating-star">
-                                    <span
-                                      class="rating-bar"
-                                      style={{ width: "80%;" }}
-                                    ></span>
-                                  </span> */}
+                                  
                                   <span className="rating">
                                     <MdOutlineStar size="15" />
                                     <MdOutlineStar size="15" />
@@ -402,12 +405,7 @@ const CourseInfo = () => {
                                 </div>
 
                                 <div class="single-rating">
-                                  {/* <span class="rating-star">
-                                    <span
-                                      class="rating-bar"
-                                      style={{ width: "60%;" }}
-                                    ></span>
-                                  </span> */}
+                                  
                                   <span className="rating">
                                     <MdOutlineStar size="15" />
                                     <MdOutlineStar size="15" />
@@ -424,12 +422,7 @@ const CourseInfo = () => {
                                 </div>
 
                                 <div class="single-rating">
-                                  {/* <span class="rating-star">
-                                    <span
-                                      class="rating-bar"
-                                      style={{ width: "40%;" }}
-                                    ></span>
-                                  </span> */}
+                                  
                                   <span className="rating">
                                     <MdOutlineStar size="15" />
                                     <MdOutlineStar size="15" />
@@ -446,12 +439,7 @@ const CourseInfo = () => {
                                 </div>
 
                                 <div class="single-rating">
-                                  {/* <span class="rating-star">
-                                    <span
-                                      class="rating-bar"
-                                      style={{ width: "20%;" }}
-                                    ></span>
-                                  </span> */}
+                                  
                                   <span className="rating">
                                     <MdOutlineStar size="15" />
                                     <MdOutlineStar size="15" />
@@ -468,10 +456,10 @@ const CourseInfo = () => {
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
-                      {/* <!-- Tab Instructors End --> */}
+                      
                     </div>
                     <div class="tab-pane fade" id="reviews">
                       {/* <!-- Tab Reviews Start --> */}
@@ -580,7 +568,7 @@ const CourseInfo = () => {
                           <Review />
                         </div>
 
-                        <div class="reviews-btn">
+                        {/* <div class="reviews-btn">
                           <button
                             type="button"
                             class="btn btn-primary btn-hover-dark review-btn"
@@ -589,7 +577,515 @@ const CourseInfo = () => {
                           >
                             Write A Review
                           </button>
+                        </div> */}
+
+                        {/* <!-- Reviews Form Modal Start --> */}
+                        <div class="modal fade" id="reviewsModal">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Add a Review</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+
+                              {/* <!-- Reviews Form Start --> */}
+                              <div class="modal-body reviews-form">
+                                <form action="#">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <input
+                                          type="text"
+                                          placeholder="Enter your name"
+                                        />
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-6">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <input
+                                          type="text"
+                                          placeholder="Enter your Email"
+                                        />
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-12">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="reviews-rating">
+                                        <label>Rating</label>
+                                        <ul id="rating" class="rating">
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="1"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="2"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="3"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            class="star"
+                                            title="Poor"
+                                            data-value="4"
+                                            onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar size="15" />
+                                          </li>
+                                          <li
+                                            // class="star"
+                                            title="Poor"
+                                            data-value="5"
+                                            value="5"
+                                            id="star5li"
+                                            onClick={onStarClick}
+                                            // onClick={onStarClick}
+                                          >
+                                            {/* <i class="icofont-star"></i> */}
+                                            <MdOutlineStar
+                                              size="15"
+                                              id="star5*"
+                                            />
+                                          </li>
+                                        </ul>
+                                        {/* <span className="rating">
+                                          <MdOutlineStar size="15" />
+                                          <MdOutlineStar size="15" />
+                                          <MdOutlineStar size="15" />
+                                          <MdOutlineStarHalf size="15" />
+                                          <MdOutlineStarOutline size="15" />
+                                        </span> */}
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-12">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <textarea placeholder="Write your comments here"></textarea>
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                    <div class="col-md-12">
+                                      {/* <!-- Single Form Start --> */}
+                                      <div class="single-form">
+                                        <button class="btn btn-primary btn-hover-dark">
+                                          Submit Review
+                                        </button>
+                                      </div>
+                                      {/* <!-- Single Form End --> */}
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              {/* <!-- Reviews Form End --> */}
+                            </div>
+                          </div>
                         </div>
+                        {/* <!-- Reviews Form Modal End --> */}
+                      </div>
+                      {/* <!-- Tab Reviews End --> */}
+                    </div>
+
+                    <div class="tab-pane fade" id="comments">
+                      {/* <!-- Tab Reviews Start --> */}
+                      <div class="tab-reviews">
+                        <h3 class="tab-title">Comments:</h3>
+
+                        {/* <div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> */}
+<div className="container">
+{/* <div class=""> */}
+                {/* <div class="row text-center">
+                    <div class="col-sm-8">
+                    <div class="card p-3 m-2" > */}
+  {/* <div style={{height: '500px !important', overflowY:"scroll !important"}} data-spy="scroll"> */}
+  <div className="row container vertical-scrollable" style={{overflowY: "scroll", height: "400px"}} >
+    <div className="col-md-12" >
+  <div className="row">
+  <div className="col-md-12">
+ 
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={AuthorImage} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Viren Jadhav</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="row">
+<div className="col-md-12">
+<div class="card p-3 m-2">
+<div className="row m-0 ">
+  <div className="col-md-2  justify-content-center text-center">
+    {/* <div class="card" > */}
+  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
+  
+</div>
+{/* </div> */}
+  {/* <div className="col-md-10"><div class="card" >
+  <img class="card-img-top" src={courseImg} alt="Card image cap" />
+  
+</div></div> */}
+<div className="col-md-10">
+    {/* <div class="card" > */}
+   
+  {/* <h5 class="card-header">Featured</h5> */}
+  {/* <div class=""> */}
+    <h5 class="">Special title treatment</h5>
+    <p class="">With supporting text below as a natural lead-in to additional content.</p>
+    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+  {/* </div> */}
+
+{/* </div> */}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr/>
+<div className="row mt-3">
+  <div className="col-md-12">
+    <div className="container">
+<textarea class="form-control" style={{border: '1px solid green'}} placeholder="write a comment..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<div className="row mt-1 justify-content-center">
+  <div className="col-md-12 justify-content-center">
+  <div className="container">
+<button className="btn btn-primary btn-hover-dark">Add Comment</button>
+</div>
+</div>
+</div>
+{/* </div> */}
+</div>
+
+
+
+
+
+
+
+                        {/* <div class="reviews-wrapper reviews-active"> */}
+                        {/* <div class="swiper-container"> */}
+                        {/* <div class="swiper-wrapper"> */}
+
+                        {/* <div class="single-review swiper-slide">
+                                <div class="review-author">
+                                  <div class="author-thumb">
+                                    <img src={author6} alt="Author" />
+                                    <i class="icofont-quote-left"></i>
+                                  </div>
+                                  <div class="author-content">
+                                    <h4 class="name">Sara Alexander</h4>
+                                    <span class="designation">
+                                      Product Designer, USA
+                                    </span>
+                                    <span class="rating-star">
+                                      <span
+                                        class="rating-bar"
+                                        style={{ width: "100%;" }}
+                                      ></span>
+                                    </span>
+                                    
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum has been the industry's standard
+                                  dummy text since the 1500 when unknown printer
+                                  took a galley of type and scrambled to make
+                                  type specimen book has survived not five
+                                  centuries but also the leap into electronic
+                                  type and book.
+                                </p>
+                              </div> */}
+
+                        {/* <div class="single-review swiper-slide">
+                                <div class="review-author">
+                                  <div class="author-thumb">
+                                    <img src={author7} alt="Author" />
+                                    <i class="icofont-quote-left"></i>
+                                  </div>
+                                  <div class="author-content">
+                                    <h4 class="name">Karol Bachman</h4>
+                                    <span class="designation">
+                                      Product Designer, USA
+                                    </span>
+                                    <span class="rating-star">
+                                      <span
+                                        class="rating-bar"
+                                        style={{ width: "100%;" }}
+                                      ></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum has been the industry's standard
+                                  dummy text since the 1500 when unknown printer
+                                  took a galley of type and scrambled to make
+                                  type specimen book has survived not five
+                                  centuries but also the leap into electronic
+                                  type and book.
+                                </p>
+                              </div> */}
+
+                        {/* <div class="single-review swiper-slide">
+                                <div class="review-author">
+                                  <div class="author-thumb">
+                                    <img src={author3} alt="Author" />
+                                    <i class="icofont-quote-left"></i>
+                                  </div>
+                                  <div class="author-content">
+                                    <h4 class="name">Gertude Culbertson</h4>
+                                    <span class="designation">
+                                      Product Designer, USA
+                                    </span>
+                                    <span class="rating-star">
+                                      <span
+                                        class="rating-bar"
+                                        style={{ width: "100%;" }}
+                                      ></span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <p>
+                                  Lorem Ipsum has been the industry's standard
+                                  dummy text since the 1500 when unknown printer
+                                  took a galley of type and scrambled to make
+                                  type specimen book has survived not five
+                                  centuries but also the leap into electronic
+                                  type and book.
+                                </p>
+                              </div> */}
+
+                        {/* </div> */}
+
+                        {/* <div class="swiper-pagination"></div>
+                          </div> */}
+                        {/* </div> */}
+
+                        {/* <div className="container">
+                          <Review />
+                        </div> */}
+
+                        {/* <div class="reviews-btn">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-hover-dark review-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#reviewsModal"
+                          >
+                            Write A Review
+                          </button>
+                        </div> */}
 
                         {/* <!-- Reviews Form Modal Start --> */}
                         <div class="modal fade" id="reviewsModal">
@@ -736,8 +1232,11 @@ const CourseInfo = () => {
             <div class="sidebar">
               {/* <!-- Sidebar Widget Information Start --> */}
               <div class="sidebar-widget widget-information">
-                <div class="info-price">
+                {/* <div class="info-price">
                   <span class="price">$420.38</span>
+                </div> */}
+                <div class="info-price">
+                  <span class="price">Course</span>
                 </div>
                 <div class="info-list">
                   <ul>
@@ -746,7 +1245,10 @@ const CourseInfo = () => {
                       <i>
                         <FcBusinessman className="icofont-man-in-glasses" />
                       </i>
-                      <strong>Instructor</strong> <span>Pamela Foster</span>
+                      <strong>Instructor</strong> <span>
+                        {/* Pamela Foster */}
+                        {course.user_full_name}
+                        </span>
                     </li>
                     <li>
                       {/* <i class="icofont-clock-time"></i>{" "} */}
@@ -788,9 +1290,15 @@ const CourseInfo = () => {
                   </ul>
                 </div>
                 <div class="info-btn">
-                  <a href="#" class="btn btn-primary btn-hover-dark enroll-btn">
+                  {/* <a href="#" class="btn btn-primary btn-hover-dark enroll-btn">
                     Enroll Now
-                  </a>
+                  </a> */}
+                  <a
+                    class="play video-popup  btn btn-primary btn-hover-dark enroll-btn"
+                    // href="https://www.youtube.com/watch?v=Wif4ZkwC0AM"
+                    href={course.video_link}
+                    target="_blank"
+                  >Watch Now</a>
                 </div>
               </div>
               {/* <!-- Sidebar Widget Information End --> */}
@@ -801,7 +1309,7 @@ const CourseInfo = () => {
 
                 <ul class="social">
                   <li>
-                    <a href="#">
+                    <a>
                       {/* <i class="flaticon-facebook"></i> */}
                       <i>
                         <FiFacebook class="flaticon-facebook" />
@@ -809,7 +1317,7 @@ const CourseInfo = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a>
                       {/* <i class="flaticon-linkedin"></i> */}
                       <i>
                         <RiLinkedinBoxLine class="flaticon-linkedin" />
@@ -817,7 +1325,7 @@ const CourseInfo = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a >
                       {/* <i class="flaticon-twitter"></i> */}
                       <i>
                         <RiTwitterLine class="flaticon-twitter" />
@@ -825,7 +1333,7 @@ const CourseInfo = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a>
                       {/* <i class="flaticon-skype"></i> */}
                       <i>
                         <RiSkypeLine class="flaticon-skype" />
@@ -833,7 +1341,7 @@ const CourseInfo = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a>
                       {/* <i class="flaticon-instagram"></i> */}
                       <i>
                         <RiInstagramLine class="flaticon-instagram" />

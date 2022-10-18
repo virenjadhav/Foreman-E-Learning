@@ -4,69 +4,61 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import Signup from "./Signup";
+import Message from "./Message";
+import { useNavigate } from "react-router-dom";
+
+import login from '../images/Login.png';
+import companyLogo from '../images/companyLogo.png';
+
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // const onLoginClick = () => {
-  //     console.log(email,password)
-  //     // const PushData = async () => {
-  //     //         const data = await (await fetch("http://localhost:5000/user")).json();
-  //     //         setPost(data);
-  //     //       }
-  // }
+  const navigate = useNavigate();
 
   const handleLogin = (event) => {
     event.preventDefault();
+    if(email=='' || password == '') {
+      setErrors("Email and password Can't be empty");
+      return;
+    }
 
     let user = {
       email: email,
       password: password,
     };
-    console.log(user);
+    // console.log(user);
 
-    //       try {
-    //       const loginFunction = async () => {
-    //             // const response = await axios.post('http://localhost:5000/login', {user}, {withCredentials: true})
-    //             const response = await axios.post('http://localhost:5000/login', {user});
-    //   // const response = await(await fetch('http://localhost:5000/logged_in')).json();
-    //   console.log("hello")
-    //   console.log(response);
+          try {
+          const loginFunction = async () => {
+                // const response = await axios.post('http://localhost:5000/login', {user}, {withCredentials: true})
+                const response = await axios.post('http://localhost:5000/login', {user});
+                console.log(response.data);
+                if(response.data.logged_in) {
+                    props.handleLogin(response.data);
+                    setIsLoggedIn(true);
+                    console.log(response.data.logged_in);
+                    console.log(isLoggedIn);
+                    redirect();
+                }
+                else{
+                    setErrors(response.data.errors);
+                    console.log(response.data);
+                }
+          }
 
-    //             if(response.data.logged_in) {
-    //                 props.handleLogin(response.data);
-    //                 setIsLoggedIn(true);
-    //                 console.log(response.data.logged_in);
-    //                 console.log(isLoggedIn);
-    //                 redirect();
-    //             }
-    //             else{
-    //                 setErrors(response.data.errors);
-    //                 console.log(errors)
-    //             }
-    //       }
+        loginFunction();
+    }
+    catch (e) {
+        console.log('api errors:', e)
+        setErrors(e.Message);
+    }
 
-    //     loginFunction();
-    //     // console.log("jjj")
-    //     // console.log(isLoggedIn);
-    // }
-    // catch (e) {
-    //     console.log('api errors:', e)
-    // }
-    redirect();
   };
 
   const redirect = () => {
-    // props.history.push('/');
-    // console.log("hello")
-    // console.log(props)
-    // props.history.push("/");
-    // return <Redirect to="/home" />;
-    // return <NavLink to="/"> </NavLink>
-    // window.history.pushState({}, "", "/");
-    window.location.href = "/";
+    navigate("/");
   };
 
   const onRegisterClick = () => {
@@ -77,20 +69,21 @@ const Login = (props) => {
     <div>
       <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
         <div class="card card0 border-0">
-          {/* <div class="alert alert-warning alert-dismissible fade show" role="alert">
-   { errors == '' ? '' : errors}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div> */}
+          <Message message={errors} />
           <div class="row d-flex">
             <div class="col-lg-6">
               <div class="card1 pb-5">
                 <div class="row">
-                  <img src="https://i.imgur.com/CXQmsmF.png" class="logo" />
+                  <img 
+                  // src="https://i.imgur.com/CXQmsmF.png"
+                  src={companyLogo}
+                   class="logo" />
                 </div>
                 <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                  <img src="https://i.imgur.com/uNGdWHi.png" class="image" />
+                  <img
+                  //  src="https://i.imgur.com/uNGdWHi.png" 
+                  src={login}
+                   class="image" />
                 </div>
               </div>
             </div>
@@ -140,19 +133,19 @@ const Login = (props) => {
                       name="chk"
                       class="custom-control-input"
                     />
-                    <label for="chk1" class="custom-control-label text-sm">
+                    {/* <label for="chk1" class="custom-control-label text-sm">
                       Remember me
-                    </label>
+                    </label> */}
                   </div>
-                  <a href="#" class="ml-auto mb-0 text-sm">
+                  {/* <a href="#" class="ml-auto mb-0 text-sm">
                     Forgot Password?
-                  </a>
+                  </a> */}
                 </div>
                 <div class="row mb-3 px-3">
                   <NavLink to={isLoggedIn ? "/" : "/login"}>
                     <button
                       type="submit"
-                      class="btn btn-blue text-center"
+                      class="btn btn-primary btn-hover-dark text-center"
                       onClick={handleLogin}
                     >
                       Login

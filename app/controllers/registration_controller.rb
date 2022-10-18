@@ -1,5 +1,6 @@
 class RegistrationController < ApplicationController
     include RackSessionFix
+# include ApplicationController
     def new 
         
         puts("rr************")
@@ -23,13 +24,24 @@ class RegistrationController < ApplicationController
         # render :json => {result:"success", message:"User created successfully"}
         
     end 
-    def getUser 
-        @user = User.new()
-        puts("ii************")
-        puts(@user)
-        puts("****************ii")
-        render :json => {user:@user}
-    end
+    # def getUser 
+    #     @user = User.new()
+    #     puts("ii************")
+    #     puts(@user)
+    #     puts("****************ii")
+    #     render :json => {user:@user}
+    # end
+
+    # def get_user
+    #     puts "****************"
+    #     puts params[:user]["id"]
+    #     @user = User.find_by_id(params[:user]["id"])
+    #     # if @user
+    #     #     render :json => {result:"success", user: @user, message:"User not found"}
+    #     # else
+    #     #     reder :json => {result:"error", user: @user, message: "User not Found"}
+    #     # end
+    # end
     
     def create 
         puts("hh************")
@@ -46,7 +58,8 @@ class RegistrationController < ApplicationController
         # @user = User.new({email:"abc@xyz.com", password: "pass", password_confirmation: "pass"})
         puts(@user)
         if @user.save
-            render :json => {result:"success", message:"User created successfully"}
+            # session[:user_id] = @user.id
+            render :json => {result:"success", message:"User created successfully", status: "created", user: @user}
         else
             render :json => {result:"Error", message:"#{@user.errors.full_messages}"}
         end
@@ -55,6 +68,6 @@ class RegistrationController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation, :username)
+        params.require(:user).permit(:email, :password, :password_confirmation, :username, :type_code, :full_name, :mobile_no, :address, :user_type)
     end
 end

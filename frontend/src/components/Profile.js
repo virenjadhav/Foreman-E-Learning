@@ -1,8 +1,117 @@
-import React from "react";
+import React, { useEffect, useContext,useState,createContext } from "react";
+import axios from "axios";
+import {UserContext} from '../contexts/UserContext'
+// import axios from 'axios'
+import UploadFile from './UploadFile'
+import defaultUser from '../images/defaultUser.jpg'
+
+// export const AppContext =
+export const AppContext = createContext(null);
 
 const Profile = () => {
+  const  {logged_in, user, baseUrl} = useContext(UserContext);
+  const [changeState, setChangeState] = useState('');
+  const [changeConfirmPassword, setChangeConfirmPassword] = useState('');
+  const [ profileUser, setProfileUser] = useState([]);
+  const [message, setMessage] = useState('');
+  // const [image_path, setImagePath] = useState(AppContext);
+  const [image_path, setImagePath] = useState('');
+  
+
+  useEffect(() => {
+    try {
+      const loginStatus = async () => {
+        const response = await axios.post("http://localhost:5000/get_user",{user});
+        // const response = await(await fetch('http://localhost:5000/logged_in')).json();
+
+        // console.log(response.data);
+        setProfileUser(response.data.user);
+        if(response.data.result === 'error'){
+          setMessage(response.data.message);
+        }
+        // setIsLoggedIn(response.data.logged_in);
+      };
+      loginStatus();
+
+      const getImage = async () => {
+        
+        
+        const post = {
+          content_type: 'user',
+          content_id: user.id,
+        }
+        const {data} = await axios.post("http://localhost:5000/get_image",{post});
+        console.log(data);
+        
+        setImagePath(data.featured_image_url);
+      }
+      getImage();
+    } catch (e) {
+      console.log("api errors:", e);
+    }
+    // setUser([1,2])
+    console.log("hello")
+    console.log(user)
+    // console.log(logged_in)
+  },[]);
+  const onModalClick = (e) => {
+    // console.log(e);
+    // console.log(e.target.id);
+    // console.log(changeState);
+    if(!logged_in){
+      setMessage(`first login`);
+      return;
+    }
+    const changeType = e.target.id;
+    const value = changeState;
+    let confirmValue = '';
+    let request = '';
+    if(changeType === 'changeEmail')
+    {
+      request = '/change_email'
+    }
+    else if(changeType === 'changeName'){
+      request = '/change_name'
+    }
+    else if (changeType === 'changeMobile'){
+      request = '/change_mobile'
+    }
+    else if (changeType === 'changeAddress'){
+      request = '/change_address'
+    }
+    else if (changeType === 'changePassword'){
+      request = '/change_password';
+      confirmValue = changeConfirmPassword;
+    }
+    const changeUser = {
+      password: value,
+      password_confirmation: changeConfirmPassword
+    }
+    
+    try{
+    const changeService = async () => {
+      const response = await axios.patch(`${baseUrl}${request}`,{value,confirmValue, user, changeUser});
+      console.log("response");
+      console.log(response);
+      setMessage(response.data.message);
+    }
+    changeService();
+  }
+  catch (e) {
+      console.log("api errors:", e);
+  }
+  }
+  const onModalCloseClick = (e) => {
+    setChangeState('');
+    setChangeConfirmPassword('');
+    setProfileUser([]);
+  }
   return (
     <div>
+        {/* <h1>{`${logged_in}`}</h1> */}
+        {/* {console.log("image_path")}
+        {image_path==''?"(console.log(image_path))":"byy"}
+        {console.log(image_path)} */}
       <div class="container m-3">
         {/* <button
           type="button"
@@ -13,23 +122,37 @@ const Profile = () => {
           Write A Review
         </button> */}
 
+{message != '' ? 
+<div class="alert alert-success" role="alert">
+  {/* This is a success alert—check it out! */}
+  {message}
+</div>
+ : ""}
+
         <div class="main-body">
           <div class="row">
             <div class="col-lg-4">
+              <div class="row">
+              <div class="col-lg-12">
+                
               <div class="card">
+              <h4 className="text-center card-header">Profile</h4>
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <img
-                      src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                      // src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                      src={image_path==''?'https://bootdey.com/img/Content/avatar/avatar6.png':image_path}
                       alt="Admin"
                       class="rounded-circle p-1 bg-primary"
                       width="110"
                     />
                     <div class="mt-3">
-                      <h4>John Doe</h4>
-                      <p class=" mb-1">Full Stack Developer</p>
+                      {/* <h4>John Doe</h4> */}
+                      <h4>{profileUser.username}</h4>
+                      {/* <p class=" mb-1">Full Stack Developer</p> */}
                       <p class="text-muted font-size-sm">
-                        Bay Area, San Francisco, CA
+                        {/* Bay Area, San Francisco, CA */}
+                        {profileUser.address}
                       </p>
                       {/* <button class="btn btn-primary">Follow</button>
                       <button class="btn btn-outline-primary">Message</button> */}
@@ -151,9 +274,33 @@ const Profile = () => {
                   </ul> */}
                 </div>
               </div>
+              </div>
+              </div>
+              <div class="row" style={{marginTop: "2%"}}>
+              <div class="col-lg-12">
+              {/* <div class="card">
+                <div class="card-body">
+                  
+                  <h3 className="text-center">Upload Image</h3>
+                <div>
+                <input type="file" 
+                style={{border: "none", marginTop: "2%"}}
+                />
+                <button 
+                
+                className="btn btn-primary btn-hover-dark justify-content-center"
+                style={{color: "white", backgroundColor: "#309255", border: "1px solid green", margin: "3% 5%"}}
+                >Upload</button>
+              </div>
+                </div>
+              </div> */}
+              <UploadFile contentType="user" contentId={user.id} title="Upload/Change Profile Image" setImagePath={setImagePath} setMessage={setMessage}/>
+              </div>
+              </div>
             </div>
             <div class="col-lg-8">
               <div class="card">
+              <h4 className="text-center card-header">Details</h4>
                 <div class="card-body">
                   <div class="row mb-3">
                     <div class="col-sm-3">
@@ -163,7 +310,8 @@ const Profile = () => {
                       <input
                         type="text"
                         class="form-control"
-                        value="John Doe"
+                        // value="John Doe"
+                        value={profileUser.username}
                       />
                     </div>
                   </div>
@@ -175,7 +323,8 @@ const Profile = () => {
                       <input
                         type="text"
                         class="form-control"
-                        value="john@example.com"
+                        // value="john@example.com"
+                        value={profileUser.email}
                       />
                     </div>
                   </div>
@@ -199,7 +348,8 @@ const Profile = () => {
                       <input
                         type="text"
                         class="form-control"
-                        value="(320) 380-4539"
+                        // value="(320) 380-4539"
+                        value={profileUser.mobile_no}
                       />
                     </div>
                   </div>
@@ -211,7 +361,8 @@ const Profile = () => {
                       <input
                         type="text"
                         class="form-control"
-                        value="Bay Area, San Francisco, CA"
+                        // value="Bay Area, San Francisco, CA"
+                        value={profileUser.address}
                       />
                     </div>
                   </div>
@@ -230,9 +381,11 @@ const Profile = () => {
               <div class="row mt-2">
                 <div class="col-sm-12">
                   <div class="card">
+                  <h4 className="text-center card-header">Links</h4>
                     <div class="card-body">
-                      <h5 class="d-flex align-items-center mb-3">Links</h5>
-                      <hr class="my-4" />
+                      {/* <h5 class="d-flex align-items-center mb-3">Links</h5> */}
+                      
+                      {/* <hr class="my-4" /> */}
                       {/* <p>Change Email</p> */}
                       <button
                         type="button"
@@ -297,7 +450,7 @@ const Profile = () => {
                         type="button"
                         class="btn btn-primary btn-hover-dark review-btn m-2"
                         data-bs-toggle="modal"
-                        data-bs-target="#reviewsModal"
+                        data-bs-target="#addressModal"
                       >
                         Change Address
                       </button>
@@ -347,11 +500,70 @@ const Profile = () => {
                       </div> */}
                     </div>
                   </div>
-                  <div class="modal fade" id="reviewsModal">
+                  <div class="modal fade" id="emailModal">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Add a Review</h5>
+                          <h5 class="modal-title">Change Email Address</h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                            onClick={e=> {  onModalCloseClick(e)}}
+                          ></button>
+                        </div>
+
+                        {/* <!-- Reviews Form Start --> */}
+                        <div class="modal-body reviews-form">
+                          <form action="" onSubmit={e => e.preventDefault()}>
+                            <div class="row">
+                              {/* <div class="col-md-6">
+                               
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your name"
+                                  />
+                                </div>
+                               
+                              </div> */}
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your New Email"
+                                    value={changeState}
+                                    onChange={e => setChangeState(e.target.value)}
+                                  />
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                              
+                              
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <button class="btn btn-primary btn-hover-dark" onClick={e=> { onModalClick(e); onModalCloseClick(e)}} data-bs-dismiss="modal"
+                            aria-label="Close" id="changeEmail">
+                                    Change Email
+                                  </button>
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        {/* <!-- Reviews Form End --> */}
+                      </div>
+                    </div>  
+                  </div>
+                  <div class="modal fade" id="passwordModal">
+                  <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Change Password</h5>
                           <button
                             type="button"
                             class="btn-close"
@@ -362,104 +574,50 @@ const Profile = () => {
 
                         {/* <!-- Reviews Form Start --> */}
                         <div class="modal-body reviews-form">
-                          <form action="#">
+                           <form action="" onSubmit={e => e.preventDefault()}>
                             <div class="row">
-                              <div class="col-md-6">
-                                {/* <!-- Single Form Start --> */}
+                              {/* <div class="col-md-6">
+                               
                                 <div class="single-form">
                                   <input
                                     type="text"
                                     placeholder="Enter your name"
                                   />
                                 </div>
-                                {/* <!-- Single Form End --> */}
-                              </div>
-                              <div class="col-md-6">
+                               
+                              </div> */}
+                              <div class="col-md-12">
                                 {/* <!-- Single Form Start --> */}
                                 <div class="single-form">
                                   <input
-                                    type="text"
-                                    placeholder="Enter your Email"
+                                    type="password"
+                                    placeholder="Enter your New Password"
+                                    value={changeState}
+                                    onChange={e => setChangeState(e.target.value)}
                                   />
                                 </div>
                                 {/* <!-- Single Form End --> */}
                               </div>
                               <div class="col-md-12">
                                 {/* <!-- Single Form Start --> */}
-                                <div class="reviews-rating">
-                                  <label>Rating</label>
-                                  <ul id="rating" class="rating">
-                                    <li
-                                      class="star"
-                                      title="Poor"
-                                      data-value="1"
-                                      // onClick={onStarClick}
-                                    >
-                                      {/* <i class="icofont-star"></i> */}
-                                      {/* <MdOutlineStar size="15" /> */}
-                                    </li>
-                                    <li
-                                      class="star"
-                                      title="Poor"
-                                      data-value="2"
-                                      // onClick={onStarClick}
-                                    >
-                                      {/* <i class="icofont-star"></i> */}
-                                      {/* <MdOutlineStar size="15" /> */}
-                                    </li>
-                                    <li
-                                      class="star"
-                                      title="Poor"
-                                      data-value="3"
-                                      // onClick={onStarClick}
-                                    >
-                                      {/* <i class="icofont-star"></i> */}
-                                      {/* <MdOutlineStar size="15" /> */}
-                                    </li>
-                                    <li
-                                      class="star"
-                                      title="Poor"
-                                      data-value="4"
-                                      // onClick={onStarClick}
-                                    >
-                                      {/* <i class="icofont-star"></i> */}
-                                      {/* <MdOutlineStar size="15" /> */}
-                                    </li>
-                                    <li
-                                      // class="star"
-                                      title="Poor"
-                                      data-value="5"
-                                      value="5"
-                                      id="star5li"
-                                      // onClick={onStarClick}
-                                      // onClick={onStarClick}
-                                    >
-                                      {/* <i class="icofont-star"></i> */}
-                                      {/* <MdOutlineStar size="15" id="star5*" /> */}
-                                    </li>
-                                  </ul>
-                                  {/* <span className="rating">
-                                          <MdOutlineStar size="15" />
-                                          <MdOutlineStar size="15" />
-                                          <MdOutlineStar size="15" />
-                                          <MdOutlineStarHalf size="15" />
-                                          <MdOutlineStarOutline size="15" />
-                                        </span> */}
+                                <div class="single-form">
+                                  <input
+                                    type="password"
+                                    placeholder="Confirm your Password"
+                                    value={changeConfirmPassword}
+                                    onChange={e => setChangeConfirmPassword(e.target.value)}
+                                  />
                                 </div>
                                 {/* <!-- Single Form End --> */}
                               </div>
+                              
+                              
                               <div class="col-md-12">
                                 {/* <!-- Single Form Start --> */}
                                 <div class="single-form">
-                                  <textarea placeholder="Write your comments here"></textarea>
-                                </div>
-                                {/* <!-- Single Form End --> */}
-                              </div>
-                              <div class="col-md-12">
-                                {/* <!-- Single Form Start --> */}
-                                <div class="single-form">
-                                  <button class="btn btn-primary btn-hover-dark">
-                                    Submit Review
+                                  <button class="btn btn-primary btn-hover-dark" onClick={e=> { onModalClick(e); onModalCloseClick(e)}} data-bs-dismiss="modal"
+                            aria-label="Close" id="changePassword">
+                                    Change Password
                                   </button>
                                 </div>
                                 {/* <!-- Single Form End --> */}
@@ -469,7 +627,181 @@ const Profile = () => {
                         </div>
                         {/* <!-- Reviews Form End --> */}
                       </div>
-                    </div>
+                    </div>  
+                  </div>
+                  <div class="modal fade" id="nameModal">
+                  <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Change Your Name</h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+
+                        {/* <!-- Reviews Form Start --> */}
+                        <div class="modal-body reviews-form">
+                           <form action="" onSubmit={e => e.preventDefault()}>
+                            <div class="row">
+                              {/* <div class="col-md-6">
+                               
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your name"
+                                  />
+                                </div>
+                               
+                              </div> */}
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your New Name"
+                                    value={changeState}
+                                    onChange={e => setChangeState(e.target.value)}
+                                  />
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                              
+                              
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <button class="btn btn-primary btn-hover-dark" onClick={e=> { onModalClick(e); onModalCloseClick(e)}}  data-bs-dismiss="modal"
+                            aria-label="Close" id="changeName">
+                                    Change Name
+                                  </button>
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        {/* <!-- Reviews Form End --> */}
+                      </div>
+                    </div> 
+                  </div>
+                  <div class="modal fade" id="mobileModal">
+                  <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Change Mobile No</h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+
+                        {/* <!-- Reviews Form Start --> */}
+                        <div class="modal-body reviews-form">
+                           <form action="" onSubmit={e => e.preventDefault()}>
+                            <div class="row">
+                              {/* <div class="col-md-6">
+                               
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your name"
+                                  />
+                                </div>
+                               
+                              </div> */}
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your New Mobile No"
+                                    value={changeState}
+                                    onChange={e => setChangeState(e.target.value)}
+                                  />
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                              
+                              
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <button class="btn btn-primary btn-hover-dark" onClick={e=> { onModalClick(e); onModalCloseClick(e)}}  data-bs-dismiss="modal"
+                            aria-label="Close" id="changeMobile">
+                                    Change Mobile No
+                                  </button>
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        {/* <!-- Reviews Form End --> */}
+                      </div>
+                    </div> 
+                  </div>
+                  <div class="modal fade" id="addressModal">
+                  <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Change  Address</h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+
+                        {/* <!-- Reviews Form Start --> */}
+                        <div class="modal-body reviews-form">
+                           <form action="" onSubmit={e => e.preventDefault()}>
+                            <div class="row">
+                              {/* <div class="col-md-6">
+                               
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your name"
+                                  />
+                                </div>
+                               
+                              </div> */}
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your New Address"
+                                    value={changeState}
+                                    onChange={e => setChangeState(e.target.value)}
+                                  />
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                              
+                              
+                              <div class="col-md-12">
+                                {/* <!-- Single Form Start --> */}
+                                <div class="single-form">
+                                  <button class="btn btn-primary btn-hover-dark" onClick={e=> { onModalClick(e); onModalCloseClick(e)}} data-bs-dismiss="modal"
+                            aria-label="Close" id="changeAddress">
+                                    Change Address
+                                  </button>
+                                </div>
+                                {/* <!-- Single Form End --> */}
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        {/* <!-- Reviews Form End --> */}
+                      </div>
+                    </div> 
                   </div>
                 </div>
               </div>

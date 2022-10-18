@@ -4,24 +4,26 @@ import CourseCard from "./CourseCard";
 import youtube from "../apis/youtube";
 
 const CourseList = ({ courses }) => {
+  
   //   const [videos, search] = useVideos(type);
   //   const [videos, setVideos] = useState([]);
 
-  //   useEffect(() => {
-  //     const onSearchSubmit = async (term) => {
-  //       console.log(type);
-  //       const { data } = await youtube.get("/search", {
-  //         params: {
-  //           q: term,
-  //         },
-  //       });
-  //       //   console.log(data);
-  //       //   //   setSelectedVideo(data.items[0]);
-  //       setVideos(data.items);
-  //     };
-  //     onSearchSubmit(type);
-  //     // console.log(type);
-  //   }, []);
+    useEffect(() => {
+      // const onSearchSubmit = async (term) => {
+      //   console.log(type);
+      //   const { data } = await youtube.get("/search", {
+      //     params: {
+      //       q: term,
+      //     },
+      //   });
+      //   //   console.log(data);
+      //   //   //   setSelectedVideo(data.items[0]);
+      //   setVideos(data.items);
+      // };
+      // onSearchSubmit(type);
+      // console.log(type);
+      console.log(courses);
+    }, []);
 
   //   console.log(videos);
   //   key={video.id.videoId}

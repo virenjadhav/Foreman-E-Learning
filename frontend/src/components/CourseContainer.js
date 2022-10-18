@@ -7,10 +7,10 @@ import "../css/style.css";
 import "../css/Home.css";
 import axios from "axios";
 
-const CourseContainer = ({ categeory }) => {
+const CourseContainer = ({ courses, subject }) => {
   //   const [videos, search] = useVideos("Data Stucture");
   // const [videos, setVideos] = useState([]);
-const [courses, setCourses] = useState([]);
+// const [courses, setCourses] = useState([]);
   //   useEffect(() => {
   //     const onSearchSubmit = async (term) => {
   //       //   console.log(type);
@@ -31,28 +31,29 @@ const [courses, setCourses] = useState([]);
   //     return <CourseList videos={videos} />;
   //   });
 
-  useEffect(()=> {
-    // console.log('CATEGORIES');
-    // console.log(categeory);
-    const getCourse = async () => {
-      const response = await axios.get("http://localhost:5000/get_course",{params:{categerios_code : categeory}});
-      // const response = await(await fetch('http://localhost:5000/logged_in')).json();
+  // useEffect(()=> {
+  //   // console.log('CATEGORIES');
+  //   // console.log(categeory);
+  //   const getCourse = async () => {
+  //     const response = await axios.get("http://localhost:5000/get_course",{params:{categerios_code : categeory}});
+  //     // const response = await(await fetch('http://localhost:5000/logged_in')).json();
 
-      // console.log(response.data.courses);
-      setCourses(response.data.courses);
-      // setIsLoggedIn(response.data.logged_in);
-    }
-    getCourse();
-  },[categeory]);
+  //     // console.log(response.data.courses);
+  //     setCourses(response.data.courses);
+  //     // setIsLoggedIn(response.data.logged_in);
+  //   }
+  //   getCourse();
+  // },[categeory]);
 
   // const videosJson = require("../data/videos.json");
   return (
     // <div>
     //
-    <div style={{ display: "inline-block", margin: "8px" }}>
-      {/* <div>
-        <h1 className=""> {categeory}</h1>
-      </div> */}
+    <div  className="container"style={{ display: "inline-block", margin: "8px" }}>
+      <div>
+        {/* <h1 className=""> {subject.subject_name}</h1> */}
+        <h3 className="text-center">{subject.subject_name}</h3>
+      </div>
       <CourseList courses={courses} />
       {/* <div className="course-btn-container">
         <button className="course-btn">Other Course</button>
