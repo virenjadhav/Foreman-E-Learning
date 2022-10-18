@@ -8,6 +8,9 @@ const Signup = (props) => {
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
   const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [type, setType] = useState("");
   const [errors, setErrors] = useState("");
 
   // const onSignupClick = (event) => {
@@ -234,10 +237,11 @@ const Signup = (props) => {
                               onChange={(e) => setName(e.target.value)}
                               value={name}
                               style={{ border: "1px solid green" }}
+                              placeholder="Enter Your Name"
                             />
-                            <label class="form-label" for="form3Example1c">
+                            {/* <label class="form-label" for="form3Example1c">
                               Your Name
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
@@ -251,10 +255,11 @@ const Signup = (props) => {
                               onChange={(e) => setEmail(e.target.value)}
                               value={email}
                               style={{ border: "1px solid green" }}
+                              placeholder="Enter Your Email"
                             />
-                            <label class="form-label" for="form3Example3c">
+                            {/* <label class="form-label" for="form3Example3c">
                               Your Email
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
@@ -268,10 +273,11 @@ const Signup = (props) => {
                               onChange={(e) => setPassword(e.target.value)}
                               value={password}
                               style={{ border: "1px solid green" }}
+                              placeholder="Enter Your Password"
                             />
-                            <label class="form-label" for="form3Example4c">
+                            {/* <label class="form-label" for="form3Example4c">
                               Password
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
@@ -287,25 +293,97 @@ const Signup = (props) => {
                               }
                               value={password_confirmation}
                               style={{ border: "1px solid green" }}
+                              placeholder="Confirm your password"
                             />
-                            <label class="form-label" for="form3Example4cd">
+                            {/* <label class="form-label" for="form3Example4cd">
                               Confirm your password
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 
-                        <div class="form-check d-flex justify-content-center mb-5">
-                          <input
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input
+                              type="text"
+                              id="form3Example4cd"
+                              class="form-control"
+                              onChange={(e) => setAddress(e.target.value)}
+                              value={address}
+                              style={{ border: "1px solid green" }}
+                              placeholder="Address"
+                            />
+                            {/* <label class="form-label" for="form3Example4cd">
+                              Confirm your password
+                            </label> */}
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input
+                              type="text"
+                              id="form3Example4cd"
+                              class="form-control"
+                              onChange={(e) => setMobile(e.target.value)}
+                              value={mobile}
+                              style={{ border: "1px solid green" }}
+                              placeholder="Enter Mobile No"
+                              min="1"
+                              max="10"
+                            />
+                            {/* <label class="form-label" for="form3Example4cd">
+                              Confirm your password
+                            </label> */}
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            Type
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a class="dropdown-item">Student</a>
+                            <a class="dropdown-item">Teacher</a>
+                            {/* <a class="dropdown-item" href="#">Something else here</a> */}
+                          </div>
+                        </div>
+
+                        {/* <div class="form-check d-flex justify-content-center mb-5"> */}
+                        {/* <input
                             class="form-check-input me-2"
                             type="checkbox"
                             value=""
                             id="form2Example3c"
-                          />
+                            style={{color: "red", border: "1px solid green"}}
+                          /> */}
+                        {/* <input
+                              type="checkbox"
+                              id="form3Example4cd"
+                              class="form-control"
+                              onChange={(e) =>
+                                setPasswordConfirmation(e.target.value)
+                              }
+                              value={password_confirmation}
+                              style={{ border: "1px solid green" }}
+                              placeholder="Confirm your password"
+                            />
                           <label class="form-check-label" for="form2Example3">
                             I agree all statements in{" "}
                             <a href="#!">Terms of service</a>
-                          </label>
-                        </div>
+                          </label> */}
+                        {/* </div> */}
 
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
