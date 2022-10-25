@@ -3,30 +3,33 @@ import axios from "axios";
 import Login from "./Login";
 import { NavLink } from "react-router-dom";
 import Message from "./Message";
-import signup from '../images/signup.jpg'
+import signup from "../images/signup.jpg";
 
 import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
-  // const [type, setType] = useState("student");
+
   const [errors, setErrors] = useState("");
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  
+
   const handleSignup = (event) => {
     event.preventDefault();
 
-
     // const {username, email, password, password_confirmation} = this.state
-    
-    if(email=='' || password == '' || password_confirmation=='' || name==''){
+
+    if (
+      email == "" ||
+      password == "" ||
+      password_confirmation == "" ||
+      name == ""
+    ) {
       setMessage("Mandatory field (*) cannot be blank");
       return;
     }
@@ -38,8 +41,8 @@ const Signup = (props) => {
       password_confirmation: password_confirmation,
       // mobile_no: mobile,
       // address: address,
-      user_type: 'student',
-      type_code : 'st'
+      user_type: "student",
+      type_code: "st",
     };
     // console.log("sign up");
     // console.log(user);
@@ -55,13 +58,16 @@ const Signup = (props) => {
           redirect();
         } else {
           setErrors(response.data);
-          console.log("error")
-          console.log(response.data.errors)
+          console.log("error");
+          console.log(response.data.errors);
           setMessage(response.data.errors);
-          console.log(response.data)
+          console.log(response.data);
         }
       })
-      .catch((error) => {console.log("api errors:", error); setMessage(error.message)});
+      .catch((error) => {
+        console.log("api errors:", error);
+        setMessage(error.message);
+      });
   };
 
   const redirect = () => {
@@ -71,11 +77,10 @@ const Signup = (props) => {
   return (
     <div>
       <div className="container">
-      <Message message={message}/>
+        <Message message={message} />
       </div>
       <section class="vh-100" style={{ backgroundColor: "#eee;" }}>
         <div class="container h-100">
-         
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
               <div class="card text-black" style={{ borderRadius: "25px;" }}>
@@ -99,7 +104,6 @@ const Signup = (props) => {
                               style={{ border: "1px solid green" }}
                               placeholder="Enter Your Name (*)"
                             />
-                            
                           </div>
                         </div>
 
@@ -166,9 +170,7 @@ const Signup = (props) => {
                               type="text"
                               id="form3Example4cd"
                               class="form-control"
-                              onChange={(e) =>
-                                setAddress(e.target.value)
-                              }
+                              onChange={(e) => setAddress(e.target.value)}
                               value={address}
                               style={{ border: "1px solid green" }}
                               placeholder="Address"
@@ -186,13 +188,12 @@ const Signup = (props) => {
                               type="text"
                               id="form3Example4cd"
                               class="form-control"
-                              onChange={(e) =>
-                                setMobile(e.target.value)
-                              }
+                              onChange={(e) => setMobile(e.target.value)}
                               value={mobile}
                               style={{ border: "1px solid green" }}
                               placeholder="Enter Mobile No"
-                              min="1" max="10"
+                              min="1"
+                              max="10"
                             />
                             {/* <label class="form-label" for="form3Example4cd">
                               Confirm your password
@@ -200,16 +201,12 @@ const Signup = (props) => {
                           </div>
                         </div>
 
-                        
                         {/* <label for="type">Type (*):</label>
 
 <select name="type" id="type" onChange={e => setType(e.target.value)} value={type}>
   <option value="">Student</option>
   <option value="teacher">Teachers</option>
 </select> */}
-
-
-                       
 
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button

@@ -40,5 +40,11 @@ post '/get_user', to: 'user#get_user'
 
   post '/set_image', to: 'posts#create'
   post 'get_image', to: 'posts#index'
+
+
+  post '/create_comment', to: 'comment#create_comment'
+
+  post '/get_comment',to: 'comment#get_comments'
+  get '/get_comment',to: 'comment#get_comments'
   
 end

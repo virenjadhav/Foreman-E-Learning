@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import "../css/course.css";
+import axios from "axios";
 
 import { HiOutlinePlay } from "react-icons/hi";
 import { IoPlayOutline } from "react-icons/io5";
@@ -29,19 +30,70 @@ import author4 from "../images/author/author-04.jpg";
 import author6 from "../images/author/author-06.jpg";
 import author7 from "../images/author/author-07.jpg";
 import Review from "./Review";
-
-
+import UserContext from "../contexts/UserContext";
 
 import CourseImage from "../images/defaultCourse.jpg";
 import AuthorImage from "../images/defaultUser.png";
 
-const CourseInfo = ({course, courseImg, teacherProfile}) => {
+const CourseInfo = ({ course, courseImg, teacherProfile }) => {
+  const { user } = useContext(UserContext);
   const [starValue, setStarValue] = useState(0);
+  const [message, setMessage] = useState("");
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState({});
   const onStarClick = (event) => {
     // console.log(event.nativeEvent.path[2]);
     // console.log(event.nativeEvent.path[2].dataset.value);
     // console.log(event.nativeEvent);
     // console.log(event);
+  };
+
+  useEffect(() => {
+    const course = {
+      course_id: course.id,
+    };
+    const getComments = async () => {
+      const response = await axios.post("http://localhost:5000/get_comments", {
+        course,
+      });
+      setComments(response.data.comments);
+    };
+    getComments();
+  }, []);
+
+  const onCommentClick = () => {
+    if (user.length <= 0) {
+      setMessage("Log in First");
+      return;
+    }
+    if (comment == "") {
+      setMessage("Please Add comment");
+    }
+
+    const comment = {
+      course_id: course.id,
+      user_id: user.id,
+      user_name: user.username,
+      categerios_id: course.categerios_id,
+      categerios_code: course.categerios_code,
+      subject_id: course.subject_id,
+      subject_code: course.subject_code,
+      categerios_code: course.categerios_code,
+      user_type: user.type_code,
+      teacher_id: course.user_id,
+      teacher_name: course.user_full_name,
+      comment: comment,
+    };
+
+    const createComment = async () => {
+      const response = await axios.post(
+        "http://localhost:5000/create_comment",
+        { comment }
+      );
+      setMessage(response.data.message);
+    };
+
+    createComment();
   };
   return (
     <div class="section-course section-padding mt-n10">
@@ -52,13 +104,15 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
             {/* <!-- Courses Details Start --> */}
             <div class="courses-details">
               <div class="courses-details-images">
-                <img 
-                // src={detailImg}
-                src={courseImg==''?CourseImage:courseImg}
-                 alt="Courses Details" />
+                <img
+                  // src={detailImg}
+                  src={courseImg == "" ? CourseImage : courseImg}
+                  alt="Courses Details"
+                />
                 <span class="tags">
                   {/* Finance */}
-                  {course.category.toUpperCase()}/{course.subject_code.toUpperCase()}
+                  {course.category.toUpperCase()}/
+                  {course.subject_code.toUpperCase()}
                   {/* {course.id} */}
                 </span>
 
@@ -86,10 +140,11 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
               <div class="courses-details-admin">
                 <div class="admin-author">
                   <div class="author-thumb">
-                    <img 
-                    // src={author1}
-                    src={teacherProfile==''?AuthorImage:teacherProfile}
-                     alt="Author" />
+                    <img
+                      // src={author1}
+                      src={teacherProfile == "" ? AuthorImage : teacherProfile}
+                      alt="Author"
+                    />
                   </div>
                   {/* <div class="author-content">
                     <a class="name" href="#">
@@ -98,7 +153,16 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                     </a>
                      <span class="Enroll">286 Enrolled Students</span> 
                   </div> */}
-                  <a className='' style={{margin: "0 10px", color: "#212832" , cursor: "auto"}}>{course.user_full_name}</a>
+                  <a
+                    className=""
+                    style={{
+                      margin: "0 10px",
+                      color: "#212832",
+                      cursor: "auto",
+                    }}
+                  >
+                    {course.user_full_name}
+                  </a>
                 </div>
                 {/* <div class="admin-rating">
                   <span class="rating-count">4.9</span>
@@ -153,7 +217,6 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                         Comments
                       </button>
                     </li>
-                    
                   </ul>
                 </div>
                 {/* <!-- Details Tab Menu End --> */}
@@ -257,7 +320,7 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                                 <h4 class="name">
                                   {/* Margarita James */}
                                   {course.user_full_name}
-                                  </h4>
+                                </h4>
                                 {/* <span class="designation">MSC, Instructor</span> */}
                               </div>
                             </div>
@@ -338,7 +401,7 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                           {/* <div class="col-lg-12">
                             <div class="tab-rating-content">
                               <h3 class="tab-title">Rating:</h3> */}
-                              {/* <p>
+                          {/* <p>
                                 Lorem Ipsum is simply dummy text of printing and
                                 typesetting industry. Lorem Ipsum has been the i
                                 dustry's standard dummy text ever since the 1500
@@ -353,7 +416,7 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                                 dustry's standard dummy text ever since the 1500
                                 unknown printer took a galley of type.
                               </p> */}
-                              {/* {course.Rating_desc}
+                          {/* {course.Rating_desc}
                             </div>
                           </div> */}
                           {/* <div class="col-lg-6">
@@ -459,110 +522,11 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                           </div> */}
                         </div>
                       </div>
-                      
                     </div>
                     <div class="tab-pane fade" id="reviews">
                       {/* <!-- Tab Reviews Start --> */}
                       <div class="tab-reviews">
                         <h3 class="tab-title">Student Reviews:</h3>
-
-                        {/* <div class="reviews-wrapper reviews-active"> */}
-                        {/* <div class="swiper-container"> */}
-                        {/* <div class="swiper-wrapper"> */}
-
-                        {/* <div class="single-review swiper-slide">
-                                <div class="review-author">
-                                  <div class="author-thumb">
-                                    <img src={author6} alt="Author" />
-                                    <i class="icofont-quote-left"></i>
-                                  </div>
-                                  <div class="author-content">
-                                    <h4 class="name">Sara Alexander</h4>
-                                    <span class="designation">
-                                      Product Designer, USA
-                                    </span>
-                                    <span class="rating-star">
-                                      <span
-                                        class="rating-bar"
-                                        style={{ width: "100%;" }}
-                                      ></span>
-                                    </span>
-                                    
-                                  </div>
-                                </div>
-                                <p>
-                                  Lorem Ipsum has been the industry's standard
-                                  dummy text since the 1500 when unknown printer
-                                  took a galley of type and scrambled to make
-                                  type specimen book has survived not five
-                                  centuries but also the leap into electronic
-                                  type and book.
-                                </p>
-                              </div> */}
-
-                        {/* <div class="single-review swiper-slide">
-                                <div class="review-author">
-                                  <div class="author-thumb">
-                                    <img src={author7} alt="Author" />
-                                    <i class="icofont-quote-left"></i>
-                                  </div>
-                                  <div class="author-content">
-                                    <h4 class="name">Karol Bachman</h4>
-                                    <span class="designation">
-                                      Product Designer, USA
-                                    </span>
-                                    <span class="rating-star">
-                                      <span
-                                        class="rating-bar"
-                                        style={{ width: "100%;" }}
-                                      ></span>
-                                    </span>
-                                  </div>
-                                </div>
-                                <p>
-                                  Lorem Ipsum has been the industry's standard
-                                  dummy text since the 1500 when unknown printer
-                                  took a galley of type and scrambled to make
-                                  type specimen book has survived not five
-                                  centuries but also the leap into electronic
-                                  type and book.
-                                </p>
-                              </div> */}
-
-                        {/* <div class="single-review swiper-slide">
-                                <div class="review-author">
-                                  <div class="author-thumb">
-                                    <img src={author3} alt="Author" />
-                                    <i class="icofont-quote-left"></i>
-                                  </div>
-                                  <div class="author-content">
-                                    <h4 class="name">Gertude Culbertson</h4>
-                                    <span class="designation">
-                                      Product Designer, USA
-                                    </span>
-                                    <span class="rating-star">
-                                      <span
-                                        class="rating-bar"
-                                        style={{ width: "100%;" }}
-                                      ></span>
-                                    </span>
-                                  </div>
-                                </div>
-                                <p>
-                                  Lorem Ipsum has been the industry's standard
-                                  dummy text since the 1500 when unknown printer
-                                  took a galley of type and scrambled to make
-                                  type specimen book has survived not five
-                                  centuries but also the leap into electronic
-                                  type and book.
-                                </p>
-                              </div> */}
-
-                        {/* </div> */}
-
-                        {/* <div class="swiper-pagination"></div>
-                          </div> */}
-                        {/* </div> */}
 
                         <div className="container">
                           <Review />
@@ -725,254 +689,308 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div> */}
-<div className="container">
-{/* <div class=""> */}
-                {/* <div class="row text-center">
-                    <div class="col-sm-8">
-                    <div class="card p-3 m-2" > */}
-  {/* <div style={{height: '500px !important', overflowY:"scroll !important"}} data-spy="scroll"> */}
-  <div className="row container vertical-scrollable" style={{overflowY: "scroll", height: "400px"}} >
-    <div className="col-md-12" >
-  <div className="row">
-  <div className="col-md-12">
- 
-</div>
-</div>
-<div className="row">
-<div className="col-md-12">
-<div class="card p-3 m-2">
-<div className="row m-0 ">
-  <div className="col-md-2  justify-content-center text-center">
-    {/* <div class="card" > */}
-  <img class=" rounded-circle  bg-primary" src={AuthorImage} alt="Card image cap"  height="70px" width="70px" />
-  
-</div>
-{/* </div> */}
-  {/* <div className="col-md-10"><div class="card" >
+                        <div className="container">
+                          <div
+                            className="row container vertical-scrollable"
+                            style={{ overflowY: "scroll", height: "400px" }}
+                          >
+                            <div className="col-md-12">
+                              <div className="row">
+                                <div className="col-md-12"></div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div class="card p-3 m-2">
+                                    <div className="row m-0 ">
+                                      <div className="col-md-2  justify-content-center text-center">
+                                        <img
+                                          class=" rounded-circle  bg-primary"
+                                          src={AuthorImage}
+                                          alt="Card image cap"
+                                          height="70px"
+                                          width="70px"
+                                        />
+                                      </div>
+                                      <div className="col-md-10">
+                                        <h5 class="">Viren Jadhav</h5>
+                                        <p class="">
+                                          With supporting text below as a
+                                          natural lead-in to additional content.
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              {comments.map((comm) => (
+                                // <Comment comment={comm}/>
+                                <div></div>
+                              ))}
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div class="card p-3 m-2">
+                                    <div className="row m-0 ">
+                                      <div className="col-md-2  justify-content-center text-center">
+                                        <img
+                                          class=" rounded-circle  bg-primary"
+                                          src={courseImg}
+                                          alt="Card image cap"
+                                          height="70px"
+                                          width="70px"
+                                        />
+                                      </div>
+                                      <div className="col-md-10">
+                                        {/* <div class="card" > */}
+
+                                        {/* <h5 class="card-header">Featured</h5> */}
+                                        {/* <div class=""> */}
+                                        <h5 class="">
+                                          Special title treatment
+                                        </h5>
+                                        <p class="">
+                                          With supporting text below as a
+                                          natural lead-in to additional content.
+                                        </p>
+                                        {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                                        {/* </div> */}
+
+                                        {/* </div> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div class="card p-3 m-2">
+                                    <div className="row m-0 ">
+                                      <div className="col-md-2  justify-content-center text-center">
+                                        {/* <div class="card" > */}
+                                        <img
+                                          class=" rounded-circle  bg-primary"
+                                          src={courseImg}
+                                          alt="Card image cap"
+                                          height="70px"
+                                          width="70px"
+                                        />
+                                      </div>
+                                      {/* </div> */}
+                                      {/* <div className="col-md-10"><div class="card" >
   <img class="card-img-top" src={courseImg} alt="Card image cap" />
   
 </div></div> */}
-<div className="col-md-10">
-    {/* <div class="card" > */}
-   
-  {/* <h5 class="card-header">Featured</h5> */}
-  {/* <div class=""> */}
-    <h5 class="">Viren Jadhav</h5>
-    <p class="">With supporting text below as a natural lead-in to additional content.</p>
-    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-  {/* </div> */}
+                                      <div className="col-md-10">
+                                        {/* <div class="card" > */}
 
-{/* </div> */}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="row">
-<div className="col-md-12">
-<div class="card p-3 m-2">
-<div className="row m-0 ">
-  <div className="col-md-2  justify-content-center text-center">
-    {/* <div class="card" > */}
-  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
-  
-</div>
-{/* </div> */}
-  {/* <div className="col-md-10"><div class="card" >
+                                        {/* <h5 class="card-header">Featured</h5> */}
+                                        {/* <div class=""> */}
+                                        <h5 class="">
+                                          Special title treatment
+                                        </h5>
+                                        <p class="">
+                                          With supporting text below as a
+                                          natural lead-in to additional content.
+                                        </p>
+                                        {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                                        {/* </div> */}
+
+                                        {/* </div> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div class="card p-3 m-2">
+                                    <div className="row m-0 ">
+                                      <div className="col-md-2  justify-content-center text-center">
+                                        {/* <div class="card" > */}
+                                        <img
+                                          class=" rounded-circle  bg-primary"
+                                          src={courseImg}
+                                          alt="Card image cap"
+                                          height="70px"
+                                          width="70px"
+                                        />
+                                      </div>
+                                      {/* </div> */}
+                                      {/* <div className="col-md-10"><div class="card" >
   <img class="card-img-top" src={courseImg} alt="Card image cap" />
   
 </div></div> */}
-<div className="col-md-10">
-    {/* <div class="card" > */}
-   
-  {/* <h5 class="card-header">Featured</h5> */}
-  {/* <div class=""> */}
-    <h5 class="">Special title treatment</h5>
-    <p class="">With supporting text below as a natural lead-in to additional content.</p>
-    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-  {/* </div> */}
+                                      <div className="col-md-10">
+                                        {/* <div class="card" > */}
 
-{/* </div> */}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="row">
-<div className="col-md-12">
-<div class="card p-3 m-2">
-<div className="row m-0 ">
-  <div className="col-md-2  justify-content-center text-center">
-    {/* <div class="card" > */}
-  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
-  
-</div>
-{/* </div> */}
-  {/* <div className="col-md-10"><div class="card" >
+                                        {/* <h5 class="card-header">Featured</h5> */}
+                                        {/* <div class=""> */}
+                                        <h5 class="">
+                                          Special title treatment
+                                        </h5>
+                                        <p class="">
+                                          With supporting text below as a
+                                          natural lead-in to additional content.
+                                        </p>
+                                        {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                                        {/* </div> */}
+
+                                        {/* </div> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div class="card p-3 m-2">
+                                    <div className="row m-0 ">
+                                      <div className="col-md-2  justify-content-center text-center">
+                                        {/* <div class="card" > */}
+                                        <img
+                                          class=" rounded-circle  bg-primary"
+                                          src={courseImg}
+                                          alt="Card image cap"
+                                          height="70px"
+                                          width="70px"
+                                        />
+                                      </div>
+                                      {/* </div> */}
+                                      {/* <div className="col-md-10"><div class="card" >
   <img class="card-img-top" src={courseImg} alt="Card image cap" />
   
 </div></div> */}
-<div className="col-md-10">
-    {/* <div class="card" > */}
-   
-  {/* <h5 class="card-header">Featured</h5> */}
-  {/* <div class=""> */}
-    <h5 class="">Special title treatment</h5>
-    <p class="">With supporting text below as a natural lead-in to additional content.</p>
-    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-  {/* </div> */}
+                                      <div className="col-md-10">
+                                        {/* <div class="card" > */}
 
-{/* </div> */}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="row">
-<div className="col-md-12">
-<div class="card p-3 m-2">
-<div className="row m-0 ">
-  <div className="col-md-2  justify-content-center text-center">
-    {/* <div class="card" > */}
-  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
-  
-</div>
-{/* </div> */}
-  {/* <div className="col-md-10"><div class="card" >
+                                        {/* <h5 class="card-header">Featured</h5> */}
+                                        {/* <div class=""> */}
+                                        <h5 class="">
+                                          Special title treatment
+                                        </h5>
+                                        <p class="">
+                                          With supporting text below as a
+                                          natural lead-in to additional content.
+                                        </p>
+                                        {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                                        {/* </div> */}
+
+                                        {/* </div> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div class="card p-3 m-2">
+                                    <div className="row m-0 ">
+                                      <div className="col-md-2  justify-content-center text-center">
+                                        {/* <div class="card" > */}
+                                        <img
+                                          class=" rounded-circle  bg-primary"
+                                          src={courseImg}
+                                          alt="Card image cap"
+                                          height="70px"
+                                          width="70px"
+                                        />
+                                      </div>
+                                      {/* </div> */}
+                                      {/* <div className="col-md-10"><div class="card" >
   <img class="card-img-top" src={courseImg} alt="Card image cap" />
   
 </div></div> */}
-<div className="col-md-10">
-    {/* <div class="card" > */}
-   
-  {/* <h5 class="card-header">Featured</h5> */}
-  {/* <div class=""> */}
-    <h5 class="">Special title treatment</h5>
-    <p class="">With supporting text below as a natural lead-in to additional content.</p>
-    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-  {/* </div> */}
+                                      <div className="col-md-10">
+                                        {/* <div class="card" > */}
 
-{/* </div> */}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="row">
-<div className="col-md-12">
-<div class="card p-3 m-2">
-<div className="row m-0 ">
-  <div className="col-md-2  justify-content-center text-center">
-    {/* <div class="card" > */}
-  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
-  
-</div>
-{/* </div> */}
-  {/* <div className="col-md-10"><div class="card" >
+                                        {/* <h5 class="card-header">Featured</h5> */}
+                                        {/* <div class=""> */}
+                                        <h5 class="">
+                                          Special title treatment
+                                        </h5>
+                                        <p class="">
+                                          With supporting text below as a
+                                          natural lead-in to additional content.
+                                        </p>
+                                        {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                                        {/* </div> */}
+
+                                        {/* </div> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div class="card p-3 m-2">
+                                    <div className="row m-0 ">
+                                      <div className="col-md-2  justify-content-center text-center">
+                                        {/* <div class="card" > */}
+                                        <img
+                                          class=" rounded-circle  bg-primary"
+                                          src={courseImg}
+                                          alt="Card image cap"
+                                          height="70px"
+                                          width="70px"
+                                        />
+                                      </div>
+                                      {/* </div> */}
+                                      {/* <div className="col-md-10"><div class="card" >
   <img class="card-img-top" src={courseImg} alt="Card image cap" />
   
 </div></div> */}
-<div className="col-md-10">
-    {/* <div class="card" > */}
-   
-  {/* <h5 class="card-header">Featured</h5> */}
-  {/* <div class=""> */}
-    <h5 class="">Special title treatment</h5>
-    <p class="">With supporting text below as a natural lead-in to additional content.</p>
-    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-  {/* </div> */}
+                                      <div className="col-md-10">
+                                        {/* <div class="card" > */}
 
-{/* </div> */}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="row">
-<div className="col-md-12">
-<div class="card p-3 m-2">
-<div className="row m-0 ">
-  <div className="col-md-2  justify-content-center text-center">
-    {/* <div class="card" > */}
-  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
-  
-</div>
-{/* </div> */}
-  {/* <div className="col-md-10"><div class="card" >
-  <img class="card-img-top" src={courseImg} alt="Card image cap" />
-  
-</div></div> */}
-<div className="col-md-10">
-    {/* <div class="card" > */}
-   
-  {/* <h5 class="card-header">Featured</h5> */}
-  {/* <div class=""> */}
-    <h5 class="">Special title treatment</h5>
-    <p class="">With supporting text below as a natural lead-in to additional content.</p>
-    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-  {/* </div> */}
+                                        {/* <h5 class="card-header">Featured</h5> */}
+                                        {/* <div class=""> */}
+                                        <h5 class="">
+                                          Special title treatment
+                                        </h5>
+                                        <p class="">
+                                          With supporting text below as a
+                                          natural lead-in to additional content.
+                                        </p>
+                                        {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+                                        {/* </div> */}
 
-{/* </div> */}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div className="row">
-<div className="col-md-12">
-<div class="card p-3 m-2">
-<div className="row m-0 ">
-  <div className="col-md-2  justify-content-center text-center">
-    {/* <div class="card" > */}
-  <img class=" rounded-circle  bg-primary" src={courseImg} alt="Card image cap"  height="70px" width="70px" />
-  
-</div>
-{/* </div> */}
-  {/* <div className="col-md-10"><div class="card" >
-  <img class="card-img-top" src={courseImg} alt="Card image cap" />
-  
-</div></div> */}
-<div className="col-md-10">
-    {/* <div class="card" > */}
-   
-  {/* <h5 class="card-header">Featured</h5> */}
-  {/* <div class=""> */}
-    <h5 class="">Special title treatment</h5>
-    <p class="">With supporting text below as a natural lead-in to additional content.</p>
-    {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-  {/* </div> */}
-
-{/* </div> */}
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<hr/>
-<div className="row mt-3">
-  <div className="col-md-12">
-    <div className="container">
-<textarea class="form-control" style={{border: '1px solid green'}} placeholder="write a comment..." rows="3"></textarea>
-</div>
-</div>
-</div>
-<div className="row mt-1 justify-content-center">
-  <div className="col-md-12 justify-content-center">
-  <div className="container">
-<button className="btn btn-primary btn-hover-dark">Add Comment</button>
-</div>
-</div>
-</div>
-{/* </div> */}
-</div>
-
-
-
-
-
-
+                                        {/* </div> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                          <div className="row mt-3">
+                            <div className="col-md-12">
+                              <div className="container">
+                                <textarea
+                                  class="form-control"
+                                  style={{ border: "1px solid green" }}
+                                  placeholder="write a comment..."
+                                  rows="3"
+                                  value={comment}
+                                  onChange={(e) => setComment(e.target.value)}
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row mt-1 justify-content-center">
+                            <div className="col-md-12 justify-content-center">
+                              <div className="container">
+                                <button
+                                  className="btn btn-primary btn-hover-dark"
+                                  onClick={onCommentClick}
+                                >
+                                  Add Comment
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </div> */}
+                        </div>
 
                         {/* <div class="reviews-wrapper reviews-active"> */}
                         {/* <div class="swiper-container"> */}
@@ -1245,10 +1263,11 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                       <i>
                         <FcBusinessman className="icofont-man-in-glasses" />
                       </i>
-                      <strong>Instructor</strong> <span>
+                      <strong>Instructor</strong>{" "}
+                      <span>
                         {/* Pamela Foster */}
                         {course.user_full_name}
-                        </span>
+                      </span>
                     </li>
                     <li>
                       {/* <i class="icofont-clock-time"></i>{" "} */}
@@ -1298,7 +1317,9 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                     // href="https://www.youtube.com/watch?v=Wif4ZkwC0AM"
                     href={course.video_link}
                     target="_blank"
-                  >Watch Now</a>
+                  >
+                    Watch Now
+                  </a>
                 </div>
               </div>
               {/* <!-- Sidebar Widget Information End --> */}
@@ -1325,7 +1346,7 @@ const CourseInfo = ({course, courseImg, teacherProfile}) => {
                     </a>
                   </li>
                   <li>
-                    <a >
+                    <a>
                       {/* <i class="flaticon-twitter"></i> */}
                       <i>
                         <RiTwitterLine class="flaticon-twitter" />
